@@ -8,8 +8,9 @@ public class Board {
     0 - empty field
     1 - snake
     2 - point
+    3 - wall
      */
-    ArrayList<Pair<Integer, Integer> >emptyPoints;
+    ArrayList<Pair<Integer, Integer> >emptyPoints = new ArrayList<>();
     private int headX;
     private int headY;
     private int tailX;
@@ -47,6 +48,17 @@ public class Board {
     int getField(int x, int y)
     {
         return table[x][y];
+    }
+
+    boolean isGameOver()
+    {
+
+        return false;
+    }
+
+    void move(char lastKey)
+    {
+
     }
 
 }
