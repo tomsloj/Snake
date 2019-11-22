@@ -5,8 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MyKeyListener /*extends JFrame*/ implements KeyListener {
-    private  char lastClicked = 'n';
+public class MyKeyListener /*extends JFrame*/ implements KeyListener
+{
+    private char lastClicked = 'n';
     /*
     u - up
     d - down
@@ -16,7 +17,8 @@ public class MyKeyListener /*extends JFrame*/ implements KeyListener {
      */
     JLabel label;
 
-    public MyKeyListener() {
+    public MyKeyListener()
+    {
         //super("newKeyListener");
         //JPanel p = new JPanel();
         //label = new JLabel("Key Listener!");

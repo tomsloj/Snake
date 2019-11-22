@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.TimerTask;
+
 
 public class Controller implements ActionListener {
     Board board;
@@ -12,12 +12,13 @@ public class Controller implements ActionListener {
     Timer timer;
     boolean gameOver = false;
     char lastKey = 'n';
-    MyKeyListener keyListener;
+    MyKeyListener keyListener = new MyKeyListener();
+
     Controller()
     {
         initGame();
 
-        while (1==1)
+        while (!board.isGameOver())
             ;
     }
 
@@ -25,18 +26,20 @@ public class Controller implements ActionListener {
     {
         board = new Board(x,y);
         view = new View(x, y);
-        //keyListener = new MyKeyListener();
+        view.addKeyListener(keyListener);
+
 
 
         timer = new Timer(speed, this);
         timer.start();
     }
 
-
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        System.out.println("tick!\n");
-        lastKey = view.getAndResetLastClicked();
+    public void actionPerformed(ActionEvent actionEvent)
+    {
+        System.out.println("tick!");
+
+        lastKey = keyListener.getAndResetLastClicked();
         System.out.println(lastKey);
         board.move(lastKey);
 
