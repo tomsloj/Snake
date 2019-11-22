@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 public class Controller implements ActionListener {
     Board board;
+    View view;
 
     int speed = 1000;
     int x = 10, y = 10;
@@ -16,14 +17,16 @@ public class Controller implements ActionListener {
     {
         initGame();
 
-    while (1==1)
-        ;
+        while (1==1)
+            ;
     }
 
     void initGame()
     {
         board = new Board(x,y);
-        keyListener = new MyKeyListener();
+        view = new View(x, y);
+        //keyListener = new MyKeyListener();
+
 
         timer = new Timer(speed, this);
         timer.start();
@@ -33,7 +36,7 @@ public class Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println("tick!\n");
-        lastKey = keyListener.getAndResetLastClicked();
+        lastKey = view.getAndResetLastClicked();
         System.out.println(lastKey);
         board.move(lastKey);
 
