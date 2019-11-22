@@ -28,6 +28,8 @@ public class Controller implements ActionListener {
         view = new View(x, y);
         view.addKeyListener(keyListener);
 
+        board.attach(view);
+
 
 
         timer = new Timer(speed, this);
