@@ -19,6 +19,8 @@ public class Board {
 
     private List<View> observers = new ArrayList<>();
 
+    char currentDirection = 'u';
+
     private int headX;
     private int headY;
     private int tailX;
@@ -46,7 +48,7 @@ public class Board {
         emptyPoints.remove(new Pair(x/2, y/2));
 
         randPoint();
-
+        notifyAllObservers();
 
     }
 
@@ -54,6 +56,7 @@ public class Board {
     {
         headX = x;
         headY = y;
+        table[x][y] = 1;
     }
 
     void setTail(int x, int y)
@@ -65,6 +68,10 @@ public class Board {
     int getField(int x, int y)
     {
         return table[x][y];
+    }
+    int[][] getTable()
+    {
+        return table;
     }
 
     boolean isGameOver()
@@ -78,32 +85,66 @@ public class Board {
         System.out.println("MOVE");
         if( lastKey == 'n' )
         {
-
+            lastKey = currentDirection;
         }
         //up
         if( lastKey == 'u' )
         {
-            MyPanel.c = Color.GREEN;
+            if( currentDirection == 'd' )
+            {
+                setHead(headX, ((headY + 1)%10+10)%10);
+            }
+            else
+            {
+                setHead(headX, ((headY - 1)%10+10)%10);
+                currentDirection = 'u';
+            }
             notifyAllObservers();
         }
         //down
         else
         if( lastKey == 'd' )
         {
-            MyPanel.c = Color.RED;
+            if( currentDirection == 'u' )
+            {
+                setHead(headX, ((headY - 1)%10+10)%10);
+            }
+            else
+            {
+                setHead(headX, ((headY + 1)%10+10)%10);
+                currentDirection = 'd';
+            }
             notifyAllObservers();
         }
         //left
         else
         if( lastKey == 'l' )
         {
-
+            if( currentDirection == 'r' )
+            {
+                setHead(((headX + 1)%10+10)%10, headY);
+            }
+            else
+            {
+                setHead(((headX - 1)%10+10)%10, headY);
+                currentDirection = 'l';
+            }
+            notifyAllObservers();
         }
         //right
         else
         if( lastKey == 'r')
         {
-
+            if( currentDirection == 'l' )
+            {
+                setHead(((headX - 1)%10+10)%10, headY);
+            }
+            else
+            {
+                setHead(((headX + 1)%10+10)%10, headY);
+                currentDirection = 'r';
+            }
+            notifyAllObservers();
         }
     }
 
@@ -121,7 +162,7 @@ public class Board {
     public void notifyAllObservers(){
         System.out.println("NOTIFY");
         for (View observer : observers) {
-            observer.update();
+            observer.update(table);
         }
     }
 

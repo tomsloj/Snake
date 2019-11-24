@@ -15,7 +15,7 @@ public class View extends JFrame {
     View(int x, int y)
     {
         super("newKeyListener");
-        p = new MyPanel(SQUARE_SIZE, MARGIN);
+        p = new MyPanel(SQUARE_SIZE, MARGIN, x, y);
         //label = new JLabel("Key Listener!");
         //p.add(label);
         p.revalidate();
@@ -27,14 +27,18 @@ public class View extends JFrame {
         setVisible(true);
     }
 
-    public void update() {
+    public void update(int[][] table)
+    {
+        p.setBoard(table);
         p.repaint();
         System.out.println("update");
+        /*
         if(MyPanel.c== Color.RED)
         System.out.println("RED");
         if(MyPanel.c== Color.BLUE)
             System.out.println("BLUE");
         if(MyPanel.c== Color.GREEN)
             System.out.println("GREEN");
+         */
     }
 }
