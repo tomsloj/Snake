@@ -7,8 +7,8 @@ public class Controller implements ActionListener {
     Board board;
     View view;
 
-    int speed = 1000;
-    int x = 10, y = 10;
+    int speed = 350;
+    int x = 22, y = 22;
     Timer timer;
     boolean gameOver = false;
     char lastKey = 'n';
@@ -17,19 +17,15 @@ public class Controller implements ActionListener {
     Controller()
     {
         initGame();
-
-        while (!board.isGameOver())
-            ;
     }
 
     void initGame()
     {
-        board = new Board(x,y);
+
         view = new View(x, y);
         view.addKeyListener(keyListener);
-
+        board = new Board(x,y);
         board.attach(view);
-
 
 
         timer = new Timer(speed, this);
@@ -44,6 +40,14 @@ public class Controller implements ActionListener {
         lastKey = keyListener.getAndResetLastClicked();
         System.out.println(lastKey);
         board.move(lastKey);
+        view.setScore(board.score);
+        if(board.isGameOver())
+            gameOver();
+    }
 
+    public void gameOver()
+    {
+        System.out.println(board.score);
+        timer.stop();
     }
 }

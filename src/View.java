@@ -10,14 +10,16 @@ public class View extends JFrame {
     JLabel label;
     MyPanel p;
 
+    int score = 0;
+
     int x, y;
 
     View(int x, int y)
     {
         super("newKeyListener");
         p = new MyPanel(SQUARE_SIZE, MARGIN, x, y);
-        //label = new JLabel("Key Listener!");
-        //p.add(label);
+        label = new JLabel("Wynik: 0");
+        p.add(label);
         p.revalidate();
         add(p);
         addKeyListener(new MyKeyListener());
@@ -40,5 +42,11 @@ public class View extends JFrame {
         if(MyPanel.c== Color.GREEN)
             System.out.println("GREEN");
          */
+    }
+
+    public void setScore(int score)
+    {
+        this.score = score;
+        label.setText("Wynik: " + Integer.toString(score));
     }
 }

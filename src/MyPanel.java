@@ -20,23 +20,23 @@ public class MyPanel  extends JPanel {
         this.marign = margin;
         this.x = x;
         this.y = y;
+
         board = new int[x][y];
 
     }
 
 
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g)
+    {
         super.paintComponent(g);
         for (int i = 0; i < x; ++i)
-            for(int j = 0; j < y; ++j )
+            for (int j = 0; j < y; ++j)
             {
-                if(board[i][j] == 0 )
+                if (board[i][j] == 0)
                     paintBackground(g, i, j);
-                else
-                if( board[i][j] == 1)
+                else if (board[i][j] == 1)
                     paintSnake(g, i, j);
-                else
-                if( board[i][j] == 2)
+                else if (board[i][j] == 2)
                     paintPoint(g, i, j);
             }
     }

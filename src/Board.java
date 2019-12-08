@@ -1,13 +1,12 @@
-import javafx.beans.InvalidationListener;
-
-import java.awt.*;
 import java.util.List;
-import java.util.Observable;
 import javafx.util.Pair;
 
 import java.util.*;
 
+
 public class Board {
+    boolean isGameOver = false;
+
     private int[][] table;
     /*
     0 - empty field
@@ -15,7 +14,9 @@ public class Board {
     2 - point
     3 - wall
      */
+
     ArrayList<Pair<Integer, Integer> >emptyPoints = new ArrayList<>();
+    Deque<Pair<Integer, Integer>> snake = new LinkedList<>();
 
     private List<View> observers = new ArrayList<>();
 
@@ -23,15 +24,20 @@ public class Board {
 
     private int headX;
     private int headY;
-    private int tailX;
-    private int tailY;
-    private int pointX;
-    private int pointY;
+    private Pair<Integer,Integer> lastTail = new Pair<Integer, Integer>(headX, headY);
+    private int appleX;
+    private int appleY;
+
+    int x, y;
+
+    int score = 0;
 
     Random rand;
 
     Board (int x, int y)
     {
+        this.x = x;
+        this.y = y;
         rand = new Random();
 
         table = new int[x][y];
@@ -43,11 +49,11 @@ public class Board {
             }
 
         setHead(x/2, y/2);
-        setTail(x/2, y/2);
+        table[headX][headY] = 1;
 
         emptyPoints.remove(new Pair(x/2, y/2));
 
-        randPoint();
+        randApple();
         notifyAllObservers();
 
     }
@@ -56,13 +62,8 @@ public class Board {
     {
         headX = x;
         headY = y;
-        table[x][y] = 1;
-    }
-
-    void setTail(int x, int y)
-    {
-        tailX = x;
-        tailY = y;
+        //table[x][y] = 1;
+        snake.addFirst(new Pair<>(x,y));
     }
 
     int getField(int x, int y)
@@ -76,13 +77,11 @@ public class Board {
 
     boolean isGameOver()
     {
-
-        return false;
+        return isGameOver;
     }
 
     void move(char lastKey)
     {
-        System.out.println("MOVE");
         if( lastKey == 'n' )
         {
             lastKey = currentDirection;
@@ -92,14 +91,13 @@ public class Board {
         {
             if( currentDirection == 'd' )
             {
-                setHead(headX, ((headY + 1)%10+10)%10);
+                setHead(headX, ((headY + 1)%y+y)%y);
             }
             else
             {
-                setHead(headX, ((headY - 1)%10+10)%10);
+                setHead(headX, ((headY - 1)%y+y)%y);
                 currentDirection = 'u';
             }
-            notifyAllObservers();
         }
         //down
         else
@@ -107,14 +105,13 @@ public class Board {
         {
             if( currentDirection == 'u' )
             {
-                setHead(headX, ((headY - 1)%10+10)%10);
+                setHead(headX, ((headY - 1)%y+y)%y);
             }
             else
             {
-                setHead(headX, ((headY + 1)%10+10)%10);
+                setHead(headX, ((headY + 1)%y+y)%y);
                 currentDirection = 'd';
             }
-            notifyAllObservers();
         }
         //left
         else
@@ -122,14 +119,13 @@ public class Board {
         {
             if( currentDirection == 'r' )
             {
-                setHead(((headX + 1)%10+10)%10, headY);
+                setHead(((headX + 1)%x+x)%x, headY);
             }
             else
             {
-                setHead(((headX - 1)%10+10)%10, headY);
+                setHead(((headX - 1)%x+x)%x, headY);
                 currentDirection = 'l';
             }
-            notifyAllObservers();
         }
         //right
         else
@@ -137,33 +133,76 @@ public class Board {
         {
             if( currentDirection == 'l' )
             {
-                setHead(((headX - 1)%10+10)%10, headY);
+                setHead(((headX - 1)%x+x)%x, headY);
             }
             else
             {
-                setHead(((headX + 1)%10+10)%10, headY);
+                setHead(((headX + 1)%x+x)%x, headY);
                 currentDirection = 'r';
             }
-            notifyAllObservers();
         }
+
+        lastTail = snake.getLast();
+
+        if( headX == appleX && headY == appleY)
+        {
+            score ++;
+            randApple();
+        }
+        else
+        {
+            emptyPoints.add(snake.getLast());
+            table[snake.getLast().getKey()][snake.getLast().getValue()] = 0;
+            snake.removeLast();
+        }
+        emptyPoints.remove(new Pair(headX, headY));
+
+        if(table[headX][headY] == 1 || table[headX][headY] == 3)
+        {
+            isGameOver = true;
+            table[lastTail.getKey()][lastTail.getValue()] = 1;
+            System.out.println("GAME OVER");
+        }
+        else
+            table[headX][headY] = 1;
+
+        System.out.println(lastTail);
+
+        notifyAllObservers();
     }
 
-    void randPoint()
+    void randApple()
     {
+        if(emptyPoints.size() == 0)
+        {
+            isGameOver = true;
+            return;
+        }
         int number = rand.nextInt(emptyPoints.size());
         Pair<Integer, Integer> pair = emptyPoints.get(number);
         table[pair.getKey()][pair.getValue()] = 2;
+        emptyPoints.remove(pair);
+        appleX = pair.getKey();
+        appleY = pair.getValue();
     }
 
     public void attach(View observer){
         observers.add(observer);
+        observer.update(table);
     }
 
     public void notifyAllObservers(){
-        System.out.println("NOTIFY");
+        //System.out.println("NOTIFY");
         for (View observer : observers) {
             observer.update(table);
         }
+    }
+    private void writeSnake()
+    {
+        Iterator iterator = snake.iterator();
+        while (iterator.hasNext())
+            System.out.println("\t" + iterator.next());
+
     }
 
 }
