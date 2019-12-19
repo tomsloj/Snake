@@ -49,5 +49,6 @@ public class Controller implements ActionListener {
     {
         System.out.println(board.score);
         timer.stop();
+        gameOver = true;
     }
 }

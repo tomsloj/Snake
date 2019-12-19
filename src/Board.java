@@ -26,7 +26,6 @@ public class Board {
 
     private int headX;
     private int headY;
-    private Pair<Integer,Integer> lastTail = new Pair<Integer, Integer>(headX, headY);
     private int appleX;
     private int appleY;
 
@@ -73,15 +72,6 @@ public class Board {
         headY = y;
         //table[x][y] = 1;
         snake.addFirst(new Pair<>(x,y));
-    }
-
-    int getField(int x, int y)
-    {
-        return table[x][y];
-    }
-    int[][] getTable()
-    {
-        return table;
     }
 
     boolean isGameOver()
@@ -151,7 +141,7 @@ public class Board {
             }
         }
 
-        lastTail = snake.getLast();
+        Pair<Integer, Integer> lastTail = snake.getLast();
 
         if( headX == appleX && headY == appleY)
         {
@@ -174,8 +164,6 @@ public class Board {
         }
         else
             table[headX][headY] = 1;
-
-        System.out.println(lastTail);
 
         notifyAllObservers();
     }
@@ -212,10 +200,8 @@ public class Board {
     }
     private void writeSnake()
     {
-        Iterator iterator = snake.iterator();
-        while (iterator.hasNext())
-            System.out.println("\t" + iterator.next());
-
+        for (Pair<Integer, Integer> integerIntegerPair : snake)
+            System.out.println("\t" + integerIntegerPair);
     }
 
 }

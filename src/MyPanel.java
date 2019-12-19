@@ -13,7 +13,6 @@ public class MyPanel  extends JPanel {
     int x;
     int y;
 
-    //int [][] board;
     Information info  = new Information();
 
 
@@ -37,8 +36,6 @@ public class MyPanel  extends JPanel {
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-
-        Dimension dimension = getSize();
 
 
         paintFrame(g);
@@ -83,12 +80,6 @@ public class MyPanel  extends JPanel {
     {
         g.setColor(Color.BLACK);
         g.drawRect(margin, margin, x * square, y * square);
-    }
-
-    private void paintBackground(Graphics g, int i, int j)
-    {
-        g.setColor(Color.BLUE);
-        g.fillRect(margin + i * square, margin + j * square ,square,square);
     }
 
     private void paintSnake(Graphics g, int i, int j)

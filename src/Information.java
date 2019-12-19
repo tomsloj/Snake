@@ -1,6 +1,5 @@
 import javafx.util.Pair;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -43,11 +42,6 @@ public class Information {
         this.appleX = appleX;
         this.appleY = appleY;
         isAppleChanged = true;
-    }
-
-    void appleStay()
-    {
-        isAppleChanged = false;
     }
 
     void setSnake(Deque<Pair<Integer, Integer>>snake)

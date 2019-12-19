@@ -1,11 +1,7 @@
-import javax.swing.*;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-public class MyKeyListener /*extends JFrame*/ implements KeyListener
+public class MyKeyListener implements KeyListener
 {
     private char lastClicked = 'n';
     /*
@@ -15,7 +11,6 @@ public class MyKeyListener /*extends JFrame*/ implements KeyListener
     l - left
     n - nothing
      */
-    JLabel label;
 
     public MyKeyListener()
     {

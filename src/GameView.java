@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Observable;
-import java.util.Observer;
 
 public class GameView extends JFrame {
 
@@ -11,8 +9,6 @@ public class GameView extends JFrame {
     MyPanel p;
 
     int score = 0;
-
-    int x, y;
 
     GameView(int x, int y)
     {
@@ -52,6 +48,6 @@ public class GameView extends JFrame {
     public void setScore(int score)
     {
         this.score = score;
-        label.setText("Wynik: " + Integer.toString(score));
+        label.setText("Wynik: " + score);
     }
 }
