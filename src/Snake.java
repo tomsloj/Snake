@@ -3,7 +3,7 @@ public class Snake {
     {
         System.out.println("Start Snake");
         //new MyKeyListener("nazwa Snake");
-        Controller controller = new Controller();
+        new Controller();
 
     }
 }

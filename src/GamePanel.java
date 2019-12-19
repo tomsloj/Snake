@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Deque;
 
-public class MyPanel  extends JPanel {
+public class GamePanel extends JPanel {
 
     int square;
     int margin;
@@ -19,7 +19,7 @@ public class MyPanel  extends JPanel {
     boolean paintWalls;
 
 
-    MyPanel(int square, int margin, int x, int y)
+    GamePanel(int square, int margin, int x, int y)
     {
         this.square = square;
         this.margin = margin;

@@ -14,6 +14,7 @@ public class MyKeyListener implements KeyListener
 
     public MyKeyListener()
     {
+        System.out.println("KKKKKKKKKKKKEY LISTENER");
         //super("newKeyListener");
         //JPanel p = new JPanel();
         //label = new JLabel("Key Listener!");
@@ -34,7 +35,7 @@ public class MyKeyListener implements KeyListener
     @Override
     public void keyPressed(KeyEvent e)
     {
-
+        System.out.println("Clicked!!!");
         if (e.getKeyCode() == KeyEvent.VK_RIGHT)
         {
             //System.out.println("Right key pressed");

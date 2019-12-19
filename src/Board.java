@@ -20,7 +20,7 @@ public class Board {
     ArrayList<Pair<Integer, Integer> >walls = new ArrayList<>();
     Deque<Pair<Integer, Integer>> snake = new LinkedList<>();
 
-    private List<GameView> observers = new ArrayList<>();
+    private List<View> observers = new ArrayList<>();
 
     char currentDirection = 'u';
 
@@ -185,7 +185,7 @@ public class Board {
         info.setApple(appleX, appleY);
     }
 
-    public void attach(GameView observer){
+    public void attach(View observer){
         info.setSnake(snake);
         observers.add(observer);
         observer.update(info);
@@ -194,7 +194,7 @@ public class Board {
     public void notifyAllObservers(){
         info.setSnake(snake);
 
-        for (GameView observer : observers) {
+        for (View observer : observers) {
             observer.update(info);
         }
     }
