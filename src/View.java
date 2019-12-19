@@ -82,7 +82,11 @@ public class View extends JFrame {
 
         getContentPane().remove(menuPanel);
         getContentPane().add(gamePanel);
+        invalidate();
         validate();
+
+        setVisible(false);
+        setVisible(true);
         /*
         getContentPane().removeAll();
 
