@@ -3,10 +3,10 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class View extends JFrame {
+public class GameView extends JFrame {
 
     final int SQUARE_SIZE = 20;
-    final int MARGIN = 20;
+    final int MARGIN = 25;
     JLabel label;
     MyPanel p;
 
@@ -14,14 +14,19 @@ public class View extends JFrame {
 
     int x, y;
 
-    View(int x, int y)
+    GameView(int x, int y)
     {
         super("newKeyListener");
         p = new MyPanel(SQUARE_SIZE, MARGIN, x, y);
+
         label = new JLabel("Wynik: 0");
+        label.setForeground(Color.GREEN);
+
+        p.setBackground(Color.BLUE);
         p.add(label);
         p.revalidate();
-        add(p);
+
+        add(p, BorderLayout.CENTER);
         addKeyListener(new MyKeyListener());
 
         setSize(SQUARE_SIZE * x + 2 * MARGIN, SQUARE_SIZE * y + 3 * MARGIN );
@@ -29,9 +34,9 @@ public class View extends JFrame {
         setVisible(true);
     }
 
-    public void update(int[][] table)
+    public void update(Information info)
     {
-        p.setBoard(table);
+        p.setInfo(info);
         p.repaint();
         System.out.println("update");
         /*

@@ -16,9 +16,11 @@ public class Board {
      */
 
     ArrayList<Pair<Integer, Integer> >emptyPoints = new ArrayList<>();
+
+    ArrayList<Pair<Integer, Integer> >walls = new ArrayList<>();
     Deque<Pair<Integer, Integer>> snake = new LinkedList<>();
 
-    private List<View> observers = new ArrayList<>();
+    private List<GameView> observers = new ArrayList<>();
 
     char currentDirection = 'u';
 
@@ -34,6 +36,8 @@ public class Board {
 
     Random rand;
 
+    Information info = new Information();
+
     Board (int x, int y)
     {
         this.x = x;
@@ -48,10 +52,15 @@ public class Board {
                 emptyPoints.add(new Pair(i,j));
             }
 
+        setHead(x/2, y/2 - 1);
         setHead(x/2, y/2);
         table[headX][headY] = 1;
 
+        emptyPoints.remove(new Pair(x/2, y/2 - 1));
         emptyPoints.remove(new Pair(x/2, y/2));
+
+
+        info.setWalls(walls);
 
         randApple();
         notifyAllObservers();
@@ -184,17 +193,21 @@ public class Board {
         emptyPoints.remove(pair);
         appleX = pair.getKey();
         appleY = pair.getValue();
+
+        info.setApple(appleX, appleY);
     }
 
-    public void attach(View observer){
+    public void attach(GameView observer){
+        info.setSnake(snake);
         observers.add(observer);
-        observer.update(table);
+        observer.update(info);
     }
 
     public void notifyAllObservers(){
-        //System.out.println("NOTIFY");
-        for (View observer : observers) {
-            observer.update(table);
+        info.setSnake(snake);
+
+        for (GameView observer : observers) {
+            observer.update(info);
         }
     }
     private void writeSnake()

@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 
 public class Controller implements ActionListener {
     Board board;
-    View view;
+    GameView gameView;
 
-    int speed = 350;
-    int x = 22, y = 22;
+    int speed = 500;
+    int x = 6, y = 6;
     Timer timer;
     boolean gameOver = false;
     char lastKey = 'n';
@@ -22,10 +22,10 @@ public class Controller implements ActionListener {
     void initGame()
     {
 
-        view = new View(x, y);
-        view.addKeyListener(keyListener);
+        gameView = new GameView(x, y);
+        gameView.addKeyListener(keyListener);
         board = new Board(x,y);
-        board.attach(view);
+        board.attach(gameView);
 
 
         timer = new Timer(speed, this);
@@ -40,7 +40,7 @@ public class Controller implements ActionListener {
         lastKey = keyListener.getAndResetLastClicked();
         System.out.println(lastKey);
         board.move(lastKey);
-        view.setScore(board.score);
+        gameView.setScore(board.score);
         if(board.isGameOver())
             gameOver();
     }
