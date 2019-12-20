@@ -13,34 +13,38 @@ public class Controller implements ActionListener {
     final int FRAME = 1;
     final int STRIPS = 2;
 
+    private int mode = 0;
+
     Board board;
     View view;
 
-    int speed = 450;
-    int x = 16, y = 12;
-    Timer timer;
-    boolean gameOver = false;
+    private int speed = 450;
+    private int x = 16, y = 12;
+    private Timer timer;
+    private boolean gameOver = false;
     char lastKey = 'n';
     MyKeyListener keyListener = new MyKeyListener();
 
     Controller()
     {
+        view = new View(x, y, this, keyListener);
+        board = new Board(x,y);
+
         initGame();
     }
 
     void initGame()
     {
 
-        view = new View(x, y, this, keyListener);
         view.addKeyListener(keyListener);
     }
 
     void startGame()
     {
         System.out.println("START GAME");
-        board = new Board(x,y);
-        board.attach(view);
+
         view.addKeyListener(keyListener);
+        board.attach(view);
 
         timer = new Timer(speed, this);
         timer.start();
@@ -54,14 +58,14 @@ public class Controller implements ActionListener {
         lastKey = keyListener.getAndResetLastClicked();
         System.out.println(lastKey);
         board.move(lastKey);
-        view.setScore(board.score);
+        view.setScore(board.getScore());
         if(board.isGameOver())
             gameOver();
     }
 
     public void gameOver()
     {
-        System.out.println(board.score);
+        System.out.println(board.getScore());
         timer.stop();
         gameOver = true;
     }
@@ -77,26 +81,32 @@ public class Controller implements ActionListener {
         return  NUMBER_OF_LEVELS + 1 - ( speed / SPEED_UNIT );
     }
 
+    public int getMode()
+    {
+        return mode;
+    }
+
     public void setMode( int mode )
     {
+        this.mode = mode;
         board.setMode( mode );
     }
 
     void setSize(int sizeLevel)
     {
-        if( sizeLevel == 1 )
+        if( sizeLevel == 0 )
         {
             this.x = 16;
             this.y = 12;
         }
         else
-        if( sizeLevel == 2 )
+        if( sizeLevel == 1 )
         {
             this.x = 22;
             this.y = 16;
         }
         else
-        if( sizeLevel == 3 )
+        if( sizeLevel == 2 )
         {
             this.x = 32;
             this.y = 24;
@@ -104,8 +114,9 @@ public class Controller implements ActionListener {
 
         view.setX(x);
         view.setY(y);
+        view.updateSize();
 
-        view.repaint();
+        board.changeSize(x, y);
 
     }
 

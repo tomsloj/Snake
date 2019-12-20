@@ -113,8 +113,23 @@ public class View extends JFrame {
         controller.setMode( mode );
     }
 
+    public void setSize(int size)
+    {
+        controller.setSize(size);
+    }
+
     public int getSpeedLevel()
     {
         return controller.getSpeedLevel();
+    }
+
+    public int getMode()
+    {
+        return controller.getMode();
+    }
+
+    public void updateSize()
+    {
+        setSize(SQUARE_SIZE * x + 2 * MARGIN, SQUARE_SIZE * y + 3 * MARGIN );
     }
 }

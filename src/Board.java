@@ -13,20 +13,15 @@ public class Board {
 
     private int mode = 0;
 
-    boolean isGameOver = false;
-
-    private int[][] table;
-    /*
-    0 - empty field
-    1 - snake
-    2 - point
-    3 - wall
-     */
+    private boolean isGameOver = false;
 
     final int EMPTY_FIELD = 0;
     final int SNAKE_FIELD = 1;
     final int APPLE_FIELD = 2;
     final int WALL_FIELD = 3;
+
+    private int[][] table;
+
 
     ArrayList<Pair<Integer, Integer> >emptyPoints = new ArrayList<>();
 
@@ -35,23 +30,36 @@ public class Board {
 
     private List<View> observers = new ArrayList<>();
 
-    char currentDirection = 'u';
+    private char currentDirection = 'u';
 
     private int headX;
     private int headY;
     private int appleX;
     private int appleY;
 
-    int x, y;
+    private int x, y;
 
-    int score = 0;
+    private int score = 0;
 
-    Random rand;
+    private Random rand;
 
-    Information info = new Information();
+    private Information info = new Information();
 
     Board (int x, int y)
     {
+        changeSize(x, y);
+
+    }
+
+    public void changeSize(int x, int y)
+    {
+        for(Pair<Integer, Integer> i : snake)
+        {
+            emptyPoints.add(i);
+            table[i.getKey()][i.getValue()] = EMPTY_FIELD;
+        }
+        snake.clear();
+
         this.x = x;
         this.y = y;
         rand = new Random();
@@ -61,31 +69,28 @@ public class Board {
             for( int j = 0; j < y; ++j )
             {
                 table[i][j] = 0;
-                emptyPoints.add(new Pair(i,j));
+                emptyPoints.add(new Pair<>(i,j));
             }
 
         setHead(x/2, y/2 - 1);
         setHead(x/2, y/2);
-        table[headX][headY] = 1;
+        table[headX][headY] = SNAKE_FIELD;
 
-        emptyPoints.remove(new Pair(x/2, y/2 - 1));
-        emptyPoints.remove(new Pair(x/2, y/2));
+        emptyPoints.remove(new Pair<>(x/2, y/2 - 1));
+        emptyPoints.remove(new Pair<>(x/2, y/2));
 
 
         info.setWalls(walls);
 
         randApple();
         notifyAllObservers();
-
-
-
-        setMode(EMPTY);
-
     }
 
     void setMode(int mode)
     {
         this.mode = mode;
+
+        clearWalls();
 
         if( mode == FRAME )
         {
@@ -222,14 +227,14 @@ public class Board {
         }
         emptyPoints.remove(new Pair(headX, headY));
 
-        if(table[headX][headY] == 1 || table[headX][headY] == 3)
+        if( table[headX][headY] == SNAKE_FIELD || table[headX][headY] == WALL_FIELD )
         {
             isGameOver = true;
-            table[lastTail.getKey()][lastTail.getValue()] = 1;
+            table[lastTail.getKey()][lastTail.getValue()] = SNAKE_FIELD;
             System.out.println("GAME OVER");
         }
         else
-            table[headX][headY] = 1;
+            table[headX][headY] = SNAKE_FIELD;
 
         notifyAllObservers();
     }
@@ -243,7 +248,7 @@ public class Board {
         }
         int number = rand.nextInt(emptyPoints.size());
         Pair<Integer, Integer> pair = emptyPoints.get(number);
-        table[pair.getKey()][pair.getValue()] = 2;
+        table[pair.getKey()][pair.getValue()] = APPLE_FIELD;
         emptyPoints.remove(pair);
         appleX = pair.getKey();
         appleY = pair.getValue();
@@ -268,6 +273,21 @@ public class Board {
     {
         for (Pair<Integer, Integer> integerIntegerPair : snake)
             System.out.println("\t" + integerIntegerPair);
+    }
+
+    private void clearWalls()
+    {
+        for(Pair<Integer, Integer> i : walls)
+        {
+            emptyPoints.add(i);
+            table[i.getKey()][i.getValue()] = EMPTY_FIELD;
+        }
+        walls.clear();
+    }
+
+    public int getScore()
+    {
+        return score;
     }
 
 }
