@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Logger;
 
 public class MenuPanel extends JPanel {
 
@@ -49,8 +50,14 @@ public class MenuPanel extends JPanel {
             {
                 Integer[] levels = {1, 2, 3, 4, 5};
                 int currentLevel = view.getSpeedLevel();
-                int speedLevel = (int) JOptionPane.showInputDialog(view, "Wybierz poziom szybkści", "Szybkość", JOptionPane.QUESTION_MESSAGE, null, levels, levels[currentLevel - 1]);
-                view.setSpeed(speedLevel);
+                try {
+                    int speedLevel = (int) JOptionPane.showInputDialog(view, "Wybierz poziom szybkści", "Szybkość", JOptionPane.QUESTION_MESSAGE, null, levels, levels[currentLevel - 1]);
+                    view.setSpeed(speedLevel);
+                }
+                catch (NullPointerException e)
+                {
+
+                }
             }
         });
 
@@ -60,23 +67,20 @@ public class MenuPanel extends JPanel {
             public void actionPerformed(ActionEvent actionEvent)
             {
                 String[] boards = {"MAŁA", "ŚREDNIA", "DUŻA"};
-                String  speedLevel = (String) JOptionPane.showInputDialog(view, "Wybierz wielkość planszy", "Rozmiar", JOptionPane.QUESTION_MESSAGE, null, boards, boards[0]);
+                try{
+                    String  speedLevel = (String) JOptionPane.showInputDialog(view, "Wybierz wielkość planszy", "Rozmiar", JOptionPane.QUESTION_MESSAGE, null, boards, boards[0]);
+                    if (speedLevel.equals("MAŁA")) {
+                        view.setSize(0);
+                    } else if (speedLevel.equals("ŚREDNIA")) {
+                        view.setSize(1);
+                    } else if (speedLevel.equals("DUŻA")) {
+                        view.setSize(2);
+                    }
+                }
+                catch (NullPointerException e)
+                {
 
-                if( speedLevel.equals("MAŁA") )
-                {
-                    view.setSize(0);
                 }
-                else
-                if( speedLevel.equals("ŚREDNIA") )
-                {
-                    view.setSize(1);
-                }
-                else
-                if( speedLevel.equals("DUŻA") )
-                {
-                    view.setSize(2);
-                }
-
             }
         });
 
@@ -87,21 +91,27 @@ public class MenuPanel extends JPanel {
             {
                 String[] boards = {"PUSTA", "RAMKA", "PASY"};
                 int currentMode = view.getMode();
-                String mode = (String) JOptionPane.showInputDialog(view, "Wybierz rodzaj planszy", "Rodzaj planszy", JOptionPane.QUESTION_MESSAGE, null, boards, boards[currentMode]);
+                try
+                {
+                    String mode = (String) JOptionPane.showInputDialog(view, "Wybierz rodzaj planszy", "Rodzaj planszy", JOptionPane.QUESTION_MESSAGE, null, boards, boards[currentMode]);
+                    if( mode.equals("PUSTA") )
+                    {
+                        view.setMode( 0 );
+                    }
+                    else
+                    if( mode.equals("RAMKA") )
+                    {
+                        view.setMode( 1 );
+                    }
+                    else
+                    if( mode.equals("PASY") )
+                    {
+                        view.setMode( 2 );
+                    }
+                }
+                catch (NullPointerException e)
+                {
 
-                if( mode.equals("PUSTA") )
-                {
-                    view.setMode( 0 );
-                }
-                else
-                if( mode.equals("RAMKA") )
-                {
-                    view.setMode( 1 );
-                }
-                else
-                if( mode.equals("PASY") )
-                {
-                    view.setMode( 2 );
                 }
 
             }

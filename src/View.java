@@ -81,6 +81,7 @@ public class View extends JFrame {
 
         setVisible(false);
         setVisible(true);
+
         /*
         getContentPane().removeAll();
 

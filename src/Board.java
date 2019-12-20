@@ -45,13 +45,35 @@ public class Board {
 
     private Information info = new Information();
 
-    Board (int x, int y)
+    Board ()
     {
-        changeSize(x, y);
+        x = 16;
+        y = 12;
 
     }
 
-    public void changeSize(int x, int y)
+    public void startGame()
+    {
+        changeMod();
+        changeSize();
+    }
+
+    public void setSize(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+
+        table = new int[x][y];
+
+        for( int i = 0; i < x; ++i )
+            for( int j = 0; j < y; ++j )
+            {
+                table[i][j] = 0;
+                emptyPoints.add(new Pair<>(i,j));
+            }
+    }
+
+    public void changeSize()
     {
         for(Pair<Integer, Integer> i : snake)
         {
@@ -60,17 +82,7 @@ public class Board {
         }
         snake.clear();
 
-        this.x = x;
-        this.y = y;
         rand = new Random();
-
-        table = new int[x][y];
-        for( int i = 0; i < x; ++i )
-            for( int j = 0; j < y; ++j )
-            {
-                table[i][j] = 0;
-                emptyPoints.add(new Pair<>(i,j));
-            }
 
         setHead(x/2, y/2 - 1);
         setHead(x/2, y/2);
@@ -89,7 +101,10 @@ public class Board {
     void setMode(int mode)
     {
         this.mode = mode;
+    }
 
+    void changeMod()
+    {
         clearWalls();
 
         if( mode == FRAME )
@@ -127,7 +142,7 @@ public class Board {
         {
             for( int i = 1; i < 3; ++i )
             {
-                for( int j = 4; j < y - 4; ++j )
+                for( int j = 3; j < y - 3; ++j )
                 {
                     walls.add(new Pair<>(i * (x/3), j));
                     table[i * (x/3)][j] = WALL_FIELD;

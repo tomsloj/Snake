@@ -28,7 +28,7 @@ public class Controller implements ActionListener {
     Controller()
     {
         view = new View(x, y, this, keyListener);
-        board = new Board(x,y);
+        board = new Board();
 
         initGame();
     }
@@ -45,6 +45,8 @@ public class Controller implements ActionListener {
 
         view.addKeyListener(keyListener);
         board.attach(view);
+
+        board.startGame();
 
         timer = new Timer(speed, this);
         timer.start();
@@ -116,7 +118,7 @@ public class Controller implements ActionListener {
         view.setY(y);
         view.updateSize();
 
-        board.changeSize(x, y);
+        board.setSize(x, y);
 
     }
 
