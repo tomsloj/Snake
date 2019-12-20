@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class Controller implements ActionListener {
 
-    final int NUMBER_OF_LEVELS = 5;
-    final int SPEED_UNIT = 150;
+    final int NUMBER_OF_LEVELS = 6;
+    final int SPEED_UNIT = 120;
 
     //game modes
     final int EMPTY = 0;
@@ -18,7 +18,7 @@ public class Controller implements ActionListener {
     Board board;
     View view;
 
-    private int speed = 450;
+    private int speed = 480;
     private int x = 16, y = 12;
     private Timer timer;
     private boolean gameOver = false;

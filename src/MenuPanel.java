@@ -48,7 +48,7 @@ public class MenuPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                Integer[] levels = {1, 2, 3, 4, 5};
+                Integer[] levels = {1, 2, 3, 4, 5, 6};
                 int currentLevel = view.getSpeedLevel();
                 try {
                     int speedLevel = (int) JOptionPane.showInputDialog(view, "Wybierz poziom szybkści", "Szybkość", JOptionPane.QUESTION_MESSAGE, null, levels, levels[currentLevel - 1]);
@@ -66,9 +66,10 @@ public class MenuPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
+                int currentSize = view.getBoardSize();
                 String[] boards = {"MAŁA", "ŚREDNIA", "DUŻA"};
                 try{
-                    String  speedLevel = (String) JOptionPane.showInputDialog(view, "Wybierz wielkość planszy", "Rozmiar", JOptionPane.QUESTION_MESSAGE, null, boards, boards[0]);
+                    String  speedLevel = (String) JOptionPane.showInputDialog(view, "Wybierz wielkość planszy", "Rozmiar", JOptionPane.QUESTION_MESSAGE, null, boards, boards[currentSize]);
                     if (speedLevel.equals("MAŁA")) {
                         view.setSize(0);
                     } else if (speedLevel.equals("ŚREDNIA")) {
