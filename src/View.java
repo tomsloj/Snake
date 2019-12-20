@@ -129,6 +129,19 @@ public class View extends JFrame {
         return controller.getMode();
     }
 
+    public int getBoardSize()
+    {
+        System.out.println(x);
+        if( x == 16 )
+            return 0;
+        if( x == 22)
+            return 1;
+        if( x == 32 )
+            return 2;
+
+        return 0;
+    }
+
     public void updateSize()
     {
         setSize(SQUARE_SIZE * x + 2 * MARGIN, SQUARE_SIZE * y + 3 * MARGIN );

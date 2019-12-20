@@ -20,7 +20,10 @@ public class Board {
     final int APPLE_FIELD = 2;
     final int WALL_FIELD = 3;
 
-    private int[][] table;
+    final int MAX_X = 50;
+    final int MAX_Y = 40;
+
+    private int[][] table = new int[MAX_X][MAX_Y];
 
 
     ArrayList<Pair<Integer, Integer> >emptyPoints = new ArrayList<>();
@@ -63,8 +66,6 @@ public class Board {
         this.x = x;
         this.y = y;
 
-        table = new int[x][y];
-
         for( int i = 0; i < x; ++i )
             for( int j = 0; j < y; ++j )
             {
@@ -75,12 +76,15 @@ public class Board {
 
     public void changeSize()
     {
-        for(Pair<Integer, Integer> i : snake)
-        {
-            emptyPoints.add(i);
-            table[i.getKey()][i.getValue()] = EMPTY_FIELD;
-        }
+        emptyPoints.clear();
         snake.clear();
+
+        for( int i = 0; i < x; ++i )
+            for( int j = 0; j < y; ++j )
+            {
+                table[i][j] = 0;
+                emptyPoints.add(new Pair<>(i,j));
+            }
 
         rand = new Random();
 
