@@ -5,6 +5,14 @@ import java.util.*;
 
 
 public class Board {
+
+    //game modes
+    final int EMPTY = 0;
+    final int FRAME = 1;
+    final int STRIPS = 2;
+
+    private int mode = 0;
+
     boolean isGameOver = false;
 
     private int[][] table;
@@ -14,6 +22,11 @@ public class Board {
     2 - point
     3 - wall
      */
+
+    final int EMPTY_FIELD = 0;
+    final int SNAKE_FIELD = 1;
+    final int APPLE_FIELD = 2;
+    final int WALL_FIELD = 3;
 
     ArrayList<Pair<Integer, Integer> >emptyPoints = new ArrayList<>();
 
@@ -64,6 +77,59 @@ public class Board {
         randApple();
         notifyAllObservers();
 
+
+
+        setMode(EMPTY);
+
+    }
+
+    void setMode(int mode)
+    {
+        this.mode = mode;
+
+        if( mode == FRAME )
+        {
+            for( int i = 0; i < x; ++i )
+            {
+                walls.add(new Pair<>(i, 0));
+                table[i][0] = WALL_FIELD;
+                emptyPoints.remove(new Pair<>(i, 0));
+            }
+
+            for( int i = 0; i < x; ++i )
+            {
+                walls.add(new Pair<>(i, y-1));
+                table[i][y-1] = WALL_FIELD;
+                emptyPoints.remove(new Pair<>(i, y-1));
+            }
+
+            for( int i = 1; i < y-1; ++i )
+            {
+                walls.add(new Pair<>(0, i));
+                table[0][i] = WALL_FIELD;
+                emptyPoints.remove(new Pair<>(0, i));
+            }
+
+            for( int i = 1; i < y-1; ++i )
+            {
+                walls.add(new Pair<>(x-1, i));
+                table[x-1][i] = WALL_FIELD;
+                emptyPoints.remove(new Pair<>(x-1, i));
+            }
+        }
+        else
+        if( mode == STRIPS )
+        {
+            for( int i = 1; i < 3; ++i )
+            {
+                for( int j = 4; j < y - 4; ++j )
+                {
+                    walls.add(new Pair<>(i * (x/3), j));
+                    table[i * (x/3)][j] = WALL_FIELD;
+                    emptyPoints.remove(new Pair<>(i * (x/3), j));
+                }
+            }
+        }
     }
 
     void setHead(int x, int y)

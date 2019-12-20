@@ -40,6 +40,8 @@ public class View extends JFrame {
         //pack();
         setVisible(true);
 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     public void update(Information info)
@@ -47,14 +49,6 @@ public class View extends JFrame {
         gamePanel.setInfo(info);
         gamePanel.repaint();
         System.out.println("update");
-        /*
-        if(MyPanel.c== Color.RED)
-        System.out.println("RED");
-        if(MyPanel.c== Color.BLUE)
-            System.out.println("BLUE");
-        if(MyPanel.c== Color.GREEN)
-            System.out.println("GREEN");
-         */
     }
 
     public void setScore(int score)
@@ -107,5 +101,20 @@ public class View extends JFrame {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void setSpeed(int speed)
+    {
+        controller.setSpeed(speed);
+    }
+
+    public void setMode( int mode )
+    {
+        controller.setMode( mode );
+    }
+
+    public int getSpeedLevel()
+    {
+        return controller.getSpeedLevel();
     }
 }
