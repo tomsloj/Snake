@@ -120,8 +120,8 @@ public class GamePanel extends JPanel {
             if(  ((prev.getKey()+1)%x == current.getKey() && current.getValue() == (next.getValue() + 1)%y) ||
                     ((next.getKey()+1)%x == current.getKey() && current.getValue() == (prev.getValue() + 1)%y))
             {
-                paintLine(g, (current.getKey() + 1)%x, current.getValue(), VERTICAL);
-                paintLine(g, current.getKey(), (current.getValue() + 1)%y, HORIZONTAL);
+                paintLine(g, current.getKey() + 1, current.getValue(), VERTICAL);
+                paintLine(g, current.getKey(), current.getValue() + 1, HORIZONTAL);
             }
             else
             if(  (prev.getKey() == (current.getKey()+1)%x && current.getValue() == (next.getValue() + 1)%y) ||
