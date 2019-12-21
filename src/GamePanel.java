@@ -12,6 +12,7 @@ public class GamePanel extends JPanel {
     final int VERTICAL = 1;
 
     Color darkGreen = new Color(50,205,50);
+
     int square;
     int margin;
 
@@ -47,12 +48,12 @@ public class GamePanel extends JPanel {
 
         Deque<Pair<Integer, Integer>> snake = info.getSnake();
 
-        /*
-        for(Pair<Integer, Integer> i: snake)
+
+
+        if(info.isAppleChanged())
         {
-            paintSnake(g, i.getKey(), i.getValue());
+            paintApple(g, info.getAppleX(), info.getAppleY());
         }
-         */
 
         Pair<Integer, Integer> head = snake.getFirst();
         snake.removeFirst();
@@ -66,7 +67,7 @@ public class GamePanel extends JPanel {
             paintLine(g, head.getKey(), head.getValue(), HORIZONTAL);
             paintLine(g, head.getKey(), head.getValue() + 1, HORIZONTAL);
 
-            if( head.getKey() > second.getKey() )
+            if( head.getKey() == (second.getKey()+1)%x )
             {
                 paintLine(g, head.getKey() + 1, head.getValue(), VERTICAL);
             }
@@ -81,7 +82,7 @@ public class GamePanel extends JPanel {
             paintLine(g, head.getKey(), head.getValue(), VERTICAL);
             paintLine(g, head.getKey() + 1, head.getValue(), VERTICAL);
 
-            if( head.getValue() > second.getValue() )
+            if( head.getValue() == (second.getValue()+1)%y )
             {
                 paintLine(g, head.getKey(), head.getValue() + 1, HORIZONTAL);
             }
@@ -115,15 +116,33 @@ public class GamePanel extends JPanel {
                 paintLine(g, current.getKey(), current.getValue(), VERTICAL);
                 paintLine(g, current.getKey() + 1, current.getValue(), VERTICAL);
             }
-            /*
             else
-            if(  prev.getValue() == current.getValue() && current.getValue() > next.getValue() )
+            if(  ((prev.getKey()+1)%x == current.getKey() && current.getValue() == (next.getValue() + 1)%y) ||
+                    ((next.getKey()+1)%x == current.getKey() && current.getValue() == (prev.getValue() + 1)%y))
             {
-                paintLine(g, current.getKey(), current.getValue(), HORIZONTAL);
+                paintLine(g, (current.getKey() + 1)%x, current.getValue(), VERTICAL);
+                paintLine(g, current.getKey(), (current.getValue() + 1)%y, HORIZONTAL);
+            }
+            else
+            if(  (prev.getKey() == (current.getKey()+1)%x && current.getValue() == (next.getValue() + 1)%y) ||
+                    (next.getKey() == (current.getKey()+1)%x && current.getValue() == (prev.getValue() + 1)%y))
+            {
+                paintLine(g, current.getKey(), current.getValue(), VERTICAL);
                 paintLine(g, current.getKey(), current.getValue() + 1, HORIZONTAL);
             }
+            else
+            if(  (prev.getKey() == (current.getKey()+1)%x && (current.getValue()+1)%y == next.getValue()) ||
+                    (next.getKey() == (current.getKey()+1)%x && (current.getValue()+1)%y == prev.getValue()))
+            {
+                paintLine(g, current.getKey(), current.getValue(), VERTICAL);
+                paintLine(g, current.getKey(), current.getValue(), HORIZONTAL);
+            }
+            else
+            {
+                paintLine(g, current.getKey()+1, current.getValue(), VERTICAL);
+                paintLine(g, current.getKey(), current.getValue(), HORIZONTAL);
+            }
 
-             */
         }
 
         Pair<Integer, Integer> tail = snake.getLast();
@@ -171,11 +190,6 @@ public class GamePanel extends JPanel {
         {
             paintWall(g, i.getKey(), i.getValue());
         }
-
-        if(info.isAppleChanged())
-        {
-            paintPoint(g, info.getAppleX(), info.getAppleY());
-        }
         /*
         if( paintWalls )
         {
@@ -206,7 +220,7 @@ public class GamePanel extends JPanel {
         g.fillRect(margin + i * square, margin + j * square ,square,square);
     }
 
-    private void paintPoint(Graphics g, int i, int j)
+    private void paintApple(Graphics g, int i, int j)
     {
         g.setColor(Color.RED);
         g.fillRect(margin + i * square, margin + j * square ,square,square);
@@ -220,11 +234,14 @@ public class GamePanel extends JPanel {
 
     private void paintLine(Graphics g, int i, int j, int orientation)
     {
-        g.setColor(darkGreen);
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setStroke(new BasicStroke(2));
+
+        g2d.setColor(darkGreen);
         if( orientation == HORIZONTAL)
-            g.drawLine( margin + i * square, margin + j * square, margin + (i + 1)*square, margin + j * square );
+            g2d.drawLine( margin + i * square, margin + j * square, margin + (i + 1)*square, margin + j * square );
         else
-            g.drawLine( margin + i * square, margin + j * square, margin + i * square, margin + (j + 1) * square );
+            g2d.drawLine( margin + i * square, margin + j * square, margin + i * square, margin + (j + 1) * square );
     }
 
 
