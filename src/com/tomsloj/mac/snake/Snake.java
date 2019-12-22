@@ -1,5 +1,13 @@
+/*
+ * @author Tomasz Słojewski
+ * @version 1.0
+ */
+
 package com.tomsloj.mac.snake;
 
+/*
+ * klasa uruchamiająca program
+ */
 public class Snake {
     public static void main(String[] args)
     {

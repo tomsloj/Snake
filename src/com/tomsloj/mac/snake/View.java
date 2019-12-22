@@ -20,7 +20,7 @@ public class View extends JFrame {
 
     private int score = 0;
 
-    View(int x, int y, Controller controller, KeyListener keyListener)
+    View(int x, int y, Controller controller)
     {
         super("newKeyListener");
 
@@ -31,17 +31,10 @@ public class View extends JFrame {
 
         menuPanel = new MenuPanel(this);
         getContentPane().add(menuPanel);
-        //gamePanel = new MyPanel(SQUARE_SIZE, MARGIN, x, y);
-
-        //gamePanel.setBackground(Color.BLUE);
-        //gamePanel.add(label);
-        //gamePanel.revalidate();
-
-       //add(gamePanel, BorderLayout.CENTER);
 
         //setSize(SQUARE_SIZE * x + 2 * MARGIN, SQUARE_SIZE * y + 3 * MARGIN );
         setSize(200, 300);
-        //pack();
+
         setVisible(true);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +45,6 @@ public class View extends JFrame {
     {
         gamePanel.setInfo(info);
         gamePanel.repaint();
-        //System.out.println("update");
     }
 
     public void setScore(int score)
@@ -77,8 +69,6 @@ public class View extends JFrame {
         label.setForeground(Color.GREEN);
 
         gamePanel.add(label);
-        //gamePanel.addKeyListener(new MyKeyListener());
-        //gamePanel.revalidate();
 
         getContentPane().remove(menuPanel);
         getContentPane().add(gamePanel);
@@ -87,17 +77,6 @@ public class View extends JFrame {
 
         setVisible(false);
         setVisible(true);
-
-        /*
-        getContentPane().removeAll();
-
-        getContentPane().add(gamePanel, BorderLayout.CENTER);
-        //validate();
-        setVisible(true);
-
-         */
-
-
 
         controller.startGame();
     }

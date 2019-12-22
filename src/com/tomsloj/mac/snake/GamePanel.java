@@ -10,22 +10,18 @@ import java.util.Iterator;
 
 public class GamePanel extends JPanel {
 
-    final int HORIZONTAL = 0;
-    final int VERTICAL = 1;
+    private final int HORIZONTAL = 0;
+    private final int VERTICAL = 1;
 
-    Color darkGreen = new Color(50,205,50);
+    private final Color DARK_GREEN = new Color(50,205,50);
 
-    int square;
-    int margin;
+    private int square;
+    private int margin;
 
-    int x;
-    int y;
+    private int x;
+    private int y;
 
-    Information info  = new Information();
-
-
-    boolean paintWalls;
-
+    private Information info  = new Information();
 
     GamePanel(int square, int margin, int x, int y)
     {
@@ -33,11 +29,6 @@ public class GamePanel extends JPanel {
         this.margin = margin;
         this.x = x;
         this.y = y;
-
-        paintWalls = true;
-
-        //board = new int[x][y];
-
     }
 
 
@@ -45,16 +36,20 @@ public class GamePanel extends JPanel {
     {
         super.paintComponent(g);
 
-
         paintFrame(g);
 
         Deque<Pair<Integer, Integer>> snake = info.getSnake();
 
-
-
         if(info.isAppleChanged())
         {
             paintApple(g, info.getAppleX(), info.getAppleY());
+        }
+
+        ArrayList<Pair<Integer, Integer>> walls = info.getWalls();
+
+        for(Pair<Integer, Integer> i: walls)
+        {
+            paintWall(g, i.getKey(), i.getValue());
         }
 
         Pair<Integer, Integer> head = snake.getFirst();
@@ -62,6 +57,33 @@ public class GamePanel extends JPanel {
         Pair<Integer, Integer> second = snake.getFirst();
         snake.addFirst(head);
 
+        paintHead(g, head, second);
+
+        Iterator it = snake.iterator();
+        Pair<Integer, Integer> prev;
+
+        Pair<Integer, Integer> current = (Pair<Integer, Integer>) it.next();
+        Pair<Integer, Integer> next  = (Pair<Integer, Integer>) it.next();;
+        for ( ; it.hasNext();  )
+        {
+            prev = current;
+            current = next;
+            next = (Pair<Integer, Integer>) it.next();
+
+            paintSnake(g, prev, current, next);
+
+        }
+
+        Pair<Integer, Integer> tail = snake.getLast();
+        snake.removeLast();
+        second = snake.getLast();
+        snake.addLast(tail);
+
+        paintTail(g, tail, second);
+    }
+
+    private void paintHead(Graphics g, Pair<Integer, Integer> head, Pair<Integer, Integer> second)
+    {
         paintSnake(g, head.getKey(), head.getValue());
 
         if(  head.getValue() == second.getValue() )
@@ -93,65 +115,53 @@ public class GamePanel extends JPanel {
                 paintLine(g, head.getKey(), head.getValue(), HORIZONTAL);
             }
         }
+    }
 
-        Iterator it = snake.iterator();
-        Pair<Integer, Integer> prev;
+    private void paintSnake(Graphics g, Pair<Integer, Integer> prev, Pair<Integer, Integer> current, Pair<Integer, Integer> next)
+    {
+        paintSnake( g, current.getKey(), current.getValue() );
 
-        Pair<Integer, Integer> current = (Pair<Integer, Integer>) it.next();
-        Pair<Integer, Integer> next  = (Pair<Integer, Integer>) it.next();;
-        for ( ; it.hasNext();  )
+        if(  prev.getValue() == current.getValue() && current.getValue() == next.getValue() )
         {
-            prev = current;
-            current = next;
-            next = (Pair<Integer, Integer>) it.next();
-
-            paintSnake( g, current.getKey(), current.getValue() );
-
-            if(  prev.getValue() == current.getValue() && current.getValue() == next.getValue() )
-            {
-                paintLine(g, current.getKey(), current.getValue(), HORIZONTAL);
-                paintLine(g, current.getKey(), current.getValue() + 1, HORIZONTAL);
-            }
-            else
-            if( prev.getKey() == current.getKey() &&  current.getKey() == next.getKey() )
-            {
-                paintLine(g, current.getKey(), current.getValue(), VERTICAL);
-                paintLine(g, current.getKey() + 1, current.getValue(), VERTICAL);
-            }
-            else
-            if(  ((prev.getKey()+1)%x == current.getKey() && current.getValue() == (next.getValue() + 1)%y) ||
-                    ((next.getKey()+1)%x == current.getKey() && current.getValue() == (prev.getValue() + 1)%y))
-            {
-                paintLine(g, current.getKey() + 1, current.getValue(), VERTICAL);
-                paintLine(g, current.getKey(), current.getValue() + 1, HORIZONTAL);
-            }
-            else
-            if(  (prev.getKey() == (current.getKey()+1)%x && current.getValue() == (next.getValue() + 1)%y) ||
-                    (next.getKey() == (current.getKey()+1)%x && current.getValue() == (prev.getValue() + 1)%y))
-            {
-                paintLine(g, current.getKey(), current.getValue(), VERTICAL);
-                paintLine(g, current.getKey(), current.getValue() + 1, HORIZONTAL);
-            }
-            else
-            if(  (prev.getKey() == (current.getKey()+1)%x && (current.getValue()+1)%y == next.getValue()) ||
-                    (next.getKey() == (current.getKey()+1)%x && (current.getValue()+1)%y == prev.getValue()))
-            {
-                paintLine(g, current.getKey(), current.getValue(), VERTICAL);
-                paintLine(g, current.getKey(), current.getValue(), HORIZONTAL);
-            }
-            else
-            {
-                paintLine(g, current.getKey()+1, current.getValue(), VERTICAL);
-                paintLine(g, current.getKey(), current.getValue(), HORIZONTAL);
-            }
-
+            paintLine(g, current.getKey(), current.getValue(), HORIZONTAL);
+            paintLine(g, current.getKey(), current.getValue() + 1, HORIZONTAL);
         }
+        else
+        if( prev.getKey() == current.getKey() &&  current.getKey() == next.getKey() )
+        {
+            paintLine(g, current.getKey(), current.getValue(), VERTICAL);
+            paintLine(g, current.getKey() + 1, current.getValue(), VERTICAL);
+        }
+        else
+        if(  ((prev.getKey()+1)%x == current.getKey() && current.getValue() == (next.getValue() + 1)%y) ||
+                ((next.getKey()+1)%x == current.getKey() && current.getValue() == (prev.getValue() + 1)%y))
+        {
+            paintLine(g, current.getKey() + 1, current.getValue(), VERTICAL);
+            paintLine(g, current.getKey(), current.getValue() + 1, HORIZONTAL);
+        }
+        else
+        if(  (prev.getKey() == (current.getKey()+1)%x && current.getValue() == (next.getValue() + 1)%y) ||
+                (next.getKey() == (current.getKey()+1)%x && current.getValue() == (prev.getValue() + 1)%y))
+        {
+            paintLine(g, current.getKey(), current.getValue(), VERTICAL);
+            paintLine(g, current.getKey(), current.getValue() + 1, HORIZONTAL);
+        }
+        else
+        if(  (prev.getKey() == (current.getKey()+1)%x && (current.getValue()+1)%y == next.getValue()) ||
+                (next.getKey() == (current.getKey()+1)%x && (current.getValue()+1)%y == prev.getValue()))
+        {
+            paintLine(g, current.getKey(), current.getValue(), VERTICAL);
+            paintLine(g, current.getKey(), current.getValue(), HORIZONTAL);
+        }
+        else
+        {
+            paintLine(g, current.getKey()+1, current.getValue(), VERTICAL);
+            paintLine(g, current.getKey(), current.getValue(), HORIZONTAL);
+        }
+    }
 
-        Pair<Integer, Integer> tail = snake.getLast();
-        snake.removeLast();
-        second = snake.getLast();
-        snake.addLast(tail);
-
+    private void paintTail(Graphics g, Pair<Integer, Integer> tail, Pair<Integer, Integer> second)
+    {
         paintSnake(g, tail.getKey(), tail.getValue());
 
         if(  tail.getValue() == second.getValue() )
@@ -183,31 +193,6 @@ public class GamePanel extends JPanel {
                 paintLine(g, tail.getKey(), tail.getValue(), HORIZONTAL);
             }
         }
-
-
-
-        ArrayList<Pair<Integer, Integer>> walls = info.getWalls();
-
-        for(Pair<Integer, Integer> i: walls)
-        {
-            paintWall(g, i.getKey(), i.getValue());
-        }
-        /*
-        if( paintWalls )
-        {
-            for (int i = 0; i < x; ++i)
-                for (int j = 0; j < y; ++j)
-                {
-                    if (board[i][j] == 0)
-                        paintBackground(g, i, j);
-                    else if (board[i][j] == 1)
-                        paintSnake(g, i, j);
-                    else if (board[i][j] == 2)
-                        paintPoint(g, i, j);
-                }
-
-        }
-         */
     }
 
     private void paintFrame(Graphics g)
@@ -239,13 +224,12 @@ public class GamePanel extends JPanel {
         Graphics2D g2d = (Graphics2D)g;
         g2d.setStroke(new BasicStroke(2));
 
-        g2d.setColor(darkGreen);
+        g2d.setColor(DARK_GREEN);
         if( orientation == HORIZONTAL)
             g2d.drawLine( margin + i * square, margin + j * square, margin + (i + 1)*square, margin + j * square );
         else
             g2d.drawLine( margin + i * square, margin + j * square, margin + i * square, margin + (j + 1) * square );
     }
-
 
     public void setInfo(Information info)
     {
