@@ -2,7 +2,6 @@ package com.tomsloj.mac.snake;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class View extends JFrame {
@@ -22,7 +21,7 @@ public class View extends JFrame {
 
     View(int x, int y, Controller controller)
     {
-        super("newKeyListener");
+        super("Snake");
 
         setX(x);
         setY(y);
@@ -91,7 +90,7 @@ public class View extends JFrame {
         try
         {
             int choice = JOptionPane.showOptionDialog(null, "Twój wynik to: " + score, "Koniec gry",
-                    JOptionPane.WARNING_MESSAGE, 0, icon, buttons, buttons[2]);
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE, icon, buttons, buttons[2]);
 
             if( choice == 0 )
             {
@@ -100,7 +99,13 @@ public class View extends JFrame {
             else
             if( choice == 1 )
             {
+                setSize(200, 300);
 
+                getContentPane().remove(gamePanel);
+                getContentPane().add(menuPanel);
+
+                invalidate();
+                validate();
             }
             else
             if( choice == 2 )

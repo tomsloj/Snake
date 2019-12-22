@@ -5,7 +5,9 @@ import javafx.util.Pair;
 
 import java.util.*;
 
-
+/*
+ * klasa będąca modelem programu wzorca MVC
+ */
 public class Board {
 
     //game modes
@@ -256,6 +258,7 @@ public class Board {
             isGameOver = true;
             table[lastTail.getKey()][lastTail.getValue()] = SNAKE_FIELD;
             snake.addLast(lastTail);
+            snake.removeFirst();
 
 
             //System.out.println("GAME OVER");
