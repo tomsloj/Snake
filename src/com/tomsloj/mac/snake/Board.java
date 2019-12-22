@@ -1,3 +1,5 @@
+package com.tomsloj.mac.snake;
+
 import java.util.List;
 import javafx.util.Pair;
 

@@ -1,3 +1,5 @@
+package com.tomsloj.mac.snake;
+
 import java.util.TimerTask;
 
 public class MyTimer extends TimerTask {

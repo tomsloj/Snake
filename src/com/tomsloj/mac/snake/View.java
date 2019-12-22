@@ -1,3 +1,5 @@
+package com.tomsloj.mac.snake;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;

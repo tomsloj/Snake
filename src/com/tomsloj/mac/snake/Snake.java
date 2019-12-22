@@ -1,3 +1,5 @@
+package com.tomsloj.mac.snake;
+
 public class Snake {
     public static void main(String[] args)
     {
