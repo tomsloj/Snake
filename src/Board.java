@@ -57,8 +57,11 @@ public class Board {
 
     public void startGame()
     {
-        changeMod();
         changeSize();
+        changeMod();
+        randApple();
+
+        System.out.println(mode);
     }
 
     public void setSize(int x, int y)
@@ -98,7 +101,6 @@ public class Board {
 
         info.setWalls(walls);
 
-        randApple();
         notifyAllObservers();
     }
 
@@ -292,6 +294,18 @@ public class Board {
     {
         for (Pair<Integer, Integer> integerIntegerPair : snake)
             System.out.println("\t" + integerIntegerPair);
+    }
+
+    private void writeBoard()
+    {
+        for( int i = 0; i < y; i++ )
+        {
+            for( int j = 0; j < x; ++j)
+            {
+                System.out.print(table[j][i]);
+            }
+            System.out.println();
+        }
     }
 
     private void clearWalls()
