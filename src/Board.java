@@ -57,11 +57,12 @@ public class Board {
 
     public void startGame()
     {
+        isGameOver = false;
+        currentDirection = 'u';
+        score = 0;
         changeSize();
         changeMod();
         randApple();
-
-        System.out.println(mode);
     }
 
     public void setSize(int x, int y)
@@ -252,7 +253,10 @@ public class Board {
         {
             isGameOver = true;
             table[lastTail.getKey()][lastTail.getValue()] = SNAKE_FIELD;
-            System.out.println("GAME OVER");
+            snake.addLast(lastTail);
+
+
+            //System.out.println("GAME OVER");
         }
         else
             table[headX][headY] = SNAKE_FIELD;

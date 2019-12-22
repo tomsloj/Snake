@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
 public class View extends JFrame {
 
@@ -36,7 +37,8 @@ public class View extends JFrame {
 
        //add(gamePanel, BorderLayout.CENTER);
 
-        setSize(SQUARE_SIZE * x + 2 * MARGIN, SQUARE_SIZE * y + 3 * MARGIN );
+        //setSize(SQUARE_SIZE * x + 2 * MARGIN, SQUARE_SIZE * y + 3 * MARGIN );
+        setSize(200, 300);
         //pack();
         setVisible(true);
 
@@ -48,7 +50,7 @@ public class View extends JFrame {
     {
         gamePanel.setInfo(info);
         gamePanel.repaint();
-        System.out.println("update");
+        //System.out.println("update");
     }
 
     public void setScore(int score)
@@ -66,6 +68,8 @@ public class View extends JFrame {
     {
         gamePanel = new GamePanel(SQUARE_SIZE, MARGIN, x, y);
         gamePanel.setBackground(Color.BLUE);
+
+        updateSize();
 
         label = new JLabel("Wynik: 0");
         label.setForeground(Color.GREEN);
@@ -94,6 +98,44 @@ public class View extends JFrame {
 
 
         controller.startGame();
+    }
+
+    public void gameOver()
+    {
+
+        Image image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        ImageIcon icon = new ImageIcon(image);
+        String[] buttons = { "Wyjdź", "Menu","Zagraj jeszcze raz" };
+
+        try
+        {
+            int choice = JOptionPane.showOptionDialog(null, "Twój wynik to: " + score, "Koniec gry",
+                    JOptionPane.WARNING_MESSAGE, 0, icon, buttons, buttons[2]);
+
+            if( choice == 0 )
+            {
+                System.exit(0);
+            }
+            else
+            if( choice == 1 )
+            {
+
+            }
+            else
+            if( choice == 2 )
+            {
+                controller.startGame();
+            }
+            else
+            {
+                System.exit(0);
+            }
+        }
+        catch (Exception e)
+        {
+            System.exit(0);
+        }
+
     }
 
     public void setX(int x) {
@@ -131,7 +173,6 @@ public class View extends JFrame {
 
     public int getBoardSize()
     {
-        System.out.println(x);
         if( x == 16 )
             return 0;
         if( x == 22)

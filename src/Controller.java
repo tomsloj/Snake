@@ -41,7 +41,8 @@ public class Controller implements ActionListener {
 
     void startGame()
     {
-        System.out.println("START GAME");
+        //System.out.println("START GAME");
+        gameOver = false;
 
         view.addKeyListener(keyListener);
         board.attach(view);
@@ -55,10 +56,9 @@ public class Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent)
     {
-        System.out.println("tick!");
+        //System.out.println("tick!");
 
         lastKey = keyListener.getAndResetLastClicked();
-        System.out.println(lastKey);
         board.move(lastKey);
         view.setScore(board.getScore());
         if(board.isGameOver())
@@ -67,9 +67,10 @@ public class Controller implements ActionListener {
 
     public void gameOver()
     {
-        System.out.println(board.getScore());
+        //System.out.println(board.getScore());
         timer.stop();
         gameOver = true;
+        view.gameOver();
     }
 
     public void setSpeed(int speed)
@@ -79,7 +80,7 @@ public class Controller implements ActionListener {
 
     public int getSpeedLevel()
     {
-        System.out.println(NUMBER_OF_LEVELS + 1 - ( speed / SPEED_UNIT ));
+        //System.out.println(NUMBER_OF_LEVELS + 1 - ( speed / SPEED_UNIT ));
         return  NUMBER_OF_LEVELS + 1 - ( speed / SPEED_UNIT );
     }
 
@@ -116,7 +117,7 @@ public class Controller implements ActionListener {
 
         view.setX(x);
         view.setY(y);
-        view.updateSize();
+        //view.updateSize();
 
         board.setSize(x, y);
 

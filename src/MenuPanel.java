@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.logging.Logger;
 
 public class MenuPanel extends JPanel {
@@ -51,7 +52,9 @@ public class MenuPanel extends JPanel {
                 Integer[] levels = {1, 2, 3, 4, 5, 6};
                 int currentLevel = view.getSpeedLevel();
                 try {
-                    int speedLevel = (int) JOptionPane.showInputDialog(view, "Wybierz poziom szybkści", "Szybkość", JOptionPane.QUESTION_MESSAGE, null, levels, levels[currentLevel - 1]);
+                    Image image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+                    ImageIcon icon = new ImageIcon(image);
+                    int speedLevel = (int) JOptionPane.showInputDialog(view, "Wybierz poziom szybkści", "Szybkość", JOptionPane.QUESTION_MESSAGE, icon, levels, levels[currentLevel - 1]);
                     view.setSpeed(speedLevel);
                 }
                 catch (NullPointerException e)
@@ -69,7 +72,9 @@ public class MenuPanel extends JPanel {
                 int currentSize = view.getBoardSize();
                 String[] boards = {"MAŁA", "ŚREDNIA", "DUŻA"};
                 try{
-                    String  speedLevel = (String) JOptionPane.showInputDialog(view, "Wybierz wielkość planszy", "Rozmiar", JOptionPane.QUESTION_MESSAGE, null, boards, boards[currentSize]);
+                    Image image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+                    ImageIcon icon = new ImageIcon(image);
+                    String  speedLevel = (String) JOptionPane.showInputDialog(view, "Wybierz wielkość planszy", "Rozmiar", JOptionPane.QUESTION_MESSAGE, icon, boards, boards[currentSize]);
                     if (speedLevel.equals("MAŁA")) {
                         view.setSize(0);
                     } else if (speedLevel.equals("ŚREDNIA")) {
@@ -94,7 +99,9 @@ public class MenuPanel extends JPanel {
                 int currentMode = view.getMode();
                 try
                 {
-                    String mode = (String) JOptionPane.showInputDialog(view, "Wybierz rodzaj planszy", "Rodzaj planszy", JOptionPane.QUESTION_MESSAGE, null, boards, boards[currentMode]);
+                    Image image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+                    ImageIcon icon = new ImageIcon(image);
+                    String mode = (String) JOptionPane.showInputDialog(view, "Wybierz rodzaj planszy", "Rodzaj planszy", JOptionPane.QUESTION_MESSAGE, icon, boards, boards[currentMode]);
                     if( mode.equals("PUSTA") )
                     {
                         view.setMode( 0 );
