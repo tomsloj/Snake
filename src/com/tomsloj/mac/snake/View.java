@@ -4,19 +4,37 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * klasa reprezentująca widok aplikacji
+ */
 public class View extends JFrame {
-
+    /**
+     * rozmiar jednego pola planszy
+     */
     private final int SQUARE_SIZE = 20;
+    /**
+     * szerokość marginesu
+     */
     private final int MARGIN = 25;
 
     private Controller controller;
     private JLabel label;
+
+    /**
+     * panel na którym rysowana jest gra
+     */
     private GamePanel gamePanel;
-    private JPanel menuPanel;
+    /**
+     * panel na którym rysowane jest menu
+     */
+    private MenuPanel menuPanel;
 
     private int x;
     private int y;
 
+    /**
+     * ilość zdobytych punktów
+     */
     private int score = 0;
 
     View(int x, int y, Controller controller)
@@ -40,12 +58,20 @@ public class View extends JFrame {
 
     }
 
+    /**
+     * aktualizuje widok gry
+     * @param info zawiera informacje o zaktualizowanej planszy
+     */
     public void update(Information info)
     {
         gamePanel.setInfo(info);
         gamePanel.repaint();
     }
 
+    /**
+     * ustawia ilość zdobytych punktów i aktualizuje napis informujący o wyniku
+     * @param score aktualna liczba punktów
+     */
     public void setScore(int score)
     {
         this.score = score;
@@ -57,6 +83,9 @@ public class View extends JFrame {
         this.controller = controller;
     }
 
+    /**
+     * metoda przechodząca z menu do gry
+     */
     public void startGame()
     {
         gamePanel = new GamePanel(SQUARE_SIZE, MARGIN, x, y);
@@ -80,6 +109,9 @@ public class View extends JFrame {
         controller.startGame();
     }
 
+    /**
+     * metoda wyświetlająca okienko po zakończeniu gry
+     */
     public void gameOver()
     {
 
@@ -121,7 +153,6 @@ public class View extends JFrame {
         {
             System.exit(0);
         }
-
     }
 
     public void setX(int x) {
@@ -169,6 +200,9 @@ public class View extends JFrame {
         return 0;
     }
 
+    /**
+     * ustawia rozmiar okna dostosowany do rozmiaru planszy do gry
+     */
     public void updateSize()
     {
         setSize(SQUARE_SIZE * x + 2 * MARGIN, SQUARE_SIZE * y + 3 * MARGIN );

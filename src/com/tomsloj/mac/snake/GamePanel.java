@@ -8,19 +8,40 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
 
+/**
+ * panel zawierający grę
+ */
 public class GamePanel extends JPanel {
 
     private final int HORIZONTAL = 0;
     private final int VERTICAL = 1;
 
+    /**
+     * kolor obwódki węża
+     */
     private final Color DARK_GREEN = new Color(50,205,50);
 
+    /**
+     * rozmiar jednego pola planszy
+     */
     private int square;
+    /**
+     * wielkość marginesów
+     */
     private int margin;
 
+    /**
+     * szerokość planszy
+     */
     private int x;
+    /**
+     * wysokość planszy
+     */
     private int y;
 
+    /**
+     * informacja o modyfikacjach planszy
+     */
     private Information info  = new Information();
 
     GamePanel(int square, int margin, int x, int y)
@@ -31,7 +52,9 @@ public class GamePanel extends JPanel {
         this.y = y;
     }
 
-
+    /**
+     * odmalowanie planszy
+     */
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
@@ -82,6 +105,12 @@ public class GamePanel extends JPanel {
         paintTail(g, tail, second);
     }
 
+    /**
+     * metoda rysująca głowę węża
+     * @param g obiekt umożliwiający rysowanie po panelu
+     * @param head umiejscowienie głowy węża
+     * @param second umiejscowienie drugiego elementu węża
+     */
     private void paintHead(Graphics g, Pair<Integer, Integer> head, Pair<Integer, Integer> second)
     {
         paintSnake(g, head.getKey(), head.getValue());
@@ -117,6 +146,13 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * metoda rysująca element węża
+     * @param g obiekt umożliwiający rysowanie po panelu
+     * @param prev poprzedni element węża
+     * @param current element węża który rysujemy
+     * @param next następny element węża
+     */
     private void paintSnake(Graphics g, Pair<Integer, Integer> prev, Pair<Integer, Integer> current, Pair<Integer, Integer> next)
     {
         paintSnake( g, current.getKey(), current.getValue() );
@@ -160,6 +196,12 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * metoda rysująca ogon węża
+     * @param g obiekt umożliwiający rysowanie po panelu
+     * @param tail umiejscowienie ogona (ostatniego elementu) węża
+     * @param second umiejscowienie przedostatniego elementu węża
+     */
     private void paintTail(Graphics g, Pair<Integer, Integer> tail, Pair<Integer, Integer> second)
     {
         paintSnake(g, tail.getKey(), tail.getValue());
@@ -195,18 +237,34 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * rysuje ramkę dookoła planszy po której może poruszać się wąż
+     * @param g obiekt umożliwiający rysowanie po panelu
+     */
     private void paintFrame(Graphics g)
     {
         g.setColor(Color.BLACK);
         g.drawRect(margin, margin, x * square, y * square);
     }
 
+    /**
+     * rysuje kwadrat będący elementem węża
+     * @param g obiekt umożliwiający rysowanie po panelu
+     * @param i numer kolumny w której ma być namalowany element
+     * @param j numer wiersza w którym ma być namalowany element
+     */
     private void paintSnake(Graphics g, int i, int j)
     {
         g.setColor(Color.GREEN);
         g.fillRect(margin + i * square, margin + j * square ,square,square);
     }
 
+    /**
+     * rysuje jabłko
+     * @param g obiekt umożliwiający rysowanie po panelu
+     * @param i numer kolumny w której ma być namalowane jabłko
+     * @param j numer wiersza w którym ma być namalowane jabłko
+     */
     private void paintApple(Graphics g, int i, int j)
     {
         g.setColor(Color.RED);
@@ -219,12 +277,25 @@ public class GamePanel extends JPanel {
         g2d.drawLine(margin + i * square + square/2, margin + j * square, margin + i * square + square/2, margin + j * square + square/6);
     }
 
+    /**
+     * rysuje element ściany
+     * @param g obiekt umożliwiający rysowanie po panelu
+     * @param i numer kolumny w której ma być namalowana ściana
+     * @param j numer wiersza w którym ma być namalowana ściana
+     */
     private void paintWall(Graphics g, int i, int j)
     {
         g.setColor(Color.WHITE);
         g.fillRect(margin + i * square, margin + j * square ,square,square);
     }
 
+    /**
+     * rysuje linię która jest obwódką węża
+     * @param g obiekt umożliwiający rysowanie po panelu
+     * @param i numer kolumny w której ma być namalowana linia
+     * @param j numer wiersza w którym ma być namalowana linia
+     * @param orientation orientacja linii 0 - pozioma, 1 - pionowa
+     */
     private void paintLine(Graphics g, int i, int j, int orientation)
     {
         Graphics2D g2d = (Graphics2D)g;

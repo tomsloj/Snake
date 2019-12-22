@@ -3,8 +3,19 @@ package com.tomsloj.mac.snake;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
+/**
+ * klasa obsługująca słuchanie klawiatury
+ */
 public class MyKeyListener implements KeyListener
 {
+    /**
+     * ostatnio naciśnięty przycisk
+     * n - nie naciśnięto przycisku
+     * d - strzałka w dół
+     * u - strzałka w górę
+     * p - strzałka w prawo
+     * l - strzałka w lewo
+     */
     private char lastClicked = 'n';
     /*
     u - up
@@ -25,6 +36,11 @@ public class MyKeyListener implements KeyListener
 
     }
 
+    /**
+     * obsługa naciśnięcia przycisku
+     * ustawienie ostatnio naciśniętego klawisza
+     * @param e naciśnięcie przycisku
+     */
     @Override
     public void keyPressed(KeyEvent e)
     {
@@ -58,6 +74,10 @@ public class MyKeyListener implements KeyListener
 
     }
 
+    /**
+     * zwraca ostatnio naciśnięty klawisz i resetuje go
+     * @return ostatnio naciśnięty klawisz
+     */
     public char getAndResetLastClicked()
     {
         char tmp = lastClicked;

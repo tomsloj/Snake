@@ -6,12 +6,34 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
+/**
+ * klasa zawierająca informację potrzebne do zmodyfikowania widoku
+ */
 public class Information {
+    /**
+     * zawiera informację czy jabłko zmieniło swoje miejsce
+     */
     private boolean isAppleChanged;
 
+    /**
+     * zawiera miejsca na planszy na których znajduje się wąż
+     */
     private Deque<Pair<Integer, Integer>> snake;
 
+    /**
+     * zawiera miejsca na planszy na których znajdują się ściany
+     */
     private ArrayList<Pair<Integer, Integer>> walls;
+
+    private int appleX;
+    private int appleY;
+
+    Information()
+    {
+        snake = new LinkedList<>();
+        walls = new ArrayList<>();
+        isAppleChanged = false;
+    }
 
     public int getAppleX() {
         return appleX;
@@ -21,22 +43,12 @@ public class Information {
         return appleY;
     }
 
-    private int appleX;
-    private int appleY;
-
     public Deque<Pair<Integer, Integer>> getSnake() {
         return snake;
     }
 
     public ArrayList<Pair<Integer, Integer>> getWalls() {
         return walls;
-    }
-
-    Information()
-    {
-        snake = new LinkedList<>();
-        walls = new ArrayList<>();
-        isAppleChanged = false;
     }
 
     void setApple(int appleX, int appleY)

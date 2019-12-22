@@ -6,12 +6,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
+/**
+ * panel zawierający menu gry
+ */
 public class MenuPanel extends JPanel {
 
+    /**
+     * przycisk rozpoczynający grę
+     */
     JButton playButton;
+    /**
+     * przycisk umożliwiający ustawienie szybkości węża
+     */
     JButton speedButton;
+    /**
+     * przycisk umożliwiający wybór rodzaju planszy
+     */
     JButton boardButton;
+    /**
+     * przycisk umożliwiający ustawienie rozmiaru planszy
+     */
     JButton sizeButton;
+    /**
+     * przycisk wyjścia z gry
+     */
     JButton closeButton;
 
     View view;
