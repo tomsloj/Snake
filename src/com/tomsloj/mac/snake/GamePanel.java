@@ -210,7 +210,13 @@ public class GamePanel extends JPanel {
     private void paintApple(Graphics g, int i, int j)
     {
         g.setColor(Color.RED);
-        g.fillRect(margin + i * square, margin + j * square ,square,square);
+        g.fillRoundRect(margin + i * square, margin + j * square ,square,square , square/4*3, square/4*3);
+        Color brown = new Color(122, 55, 0);
+
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setStroke(new BasicStroke(2));
+        g2d.setColor(brown);
+        g2d.drawLine(margin + i * square + square/2, margin + j * square, margin + i * square + square/2, margin + j * square + square/6);
     }
 
     private void paintWall(Graphics g, int i, int j)

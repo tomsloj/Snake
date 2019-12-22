@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.logging.Logger;
 
 public class MenuPanel extends JPanel {
 
@@ -127,14 +126,7 @@ public class MenuPanel extends JPanel {
             }
         });
 
-        closeButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
-                System.exit(0);
-            }
-        });
+        closeButton.addActionListener(actionEvent -> System.exit(0));
     }
 
 }
