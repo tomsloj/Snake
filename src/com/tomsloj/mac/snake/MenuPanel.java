@@ -38,19 +38,34 @@ public class MenuPanel extends JPanel {
     {
         this.view = view;
 
+        setBackground(Color.BLUE);
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+
+        JLabel label = new JLabel("Snake");
+        label.setFont(new Font("Copperplate", Font.BOLD, 75));
+        label.setForeground(Color.GREEN);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(label);
+
         playButton = new JButton("GRAJ");
+        customizeButton(playButton);
         add(playButton);
 
         speedButton = new JButton("SZYBKOŚĆ");
+        customizeButton(speedButton);
         add(speedButton);
 
         sizeButton = new JButton("ROZMIAR PLANSZY");
+        customizeButton(sizeButton);
         add(sizeButton);
 
         boardButton = new JButton("RODZAJ PLANSZY");
+        customizeButton(boardButton);
         add(boardButton);
 
         closeButton = new JButton("WYJDŹ");
+        customizeButton(closeButton);
         add(closeButton);
 
         playButton.addActionListener(new ActionListener()
@@ -145,6 +160,19 @@ public class MenuPanel extends JPanel {
         });
 
         closeButton.addActionListener(actionEvent -> System.exit(0));
+    }
+
+    /**
+     * ustawia styl przycisku
+     * @param button przycisk którego styl ustawiamy
+     */
+    private void customizeButton(JButton button)
+    {
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setForeground(Color.WHITE);
+        button.setBackground(Color.BLUE);
+        button.setBorderPainted(false);
+        button.setFont(new Font("Cochin", Font.PLAIN, 22));
     }
 
 }

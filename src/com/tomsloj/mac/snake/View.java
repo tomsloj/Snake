@@ -47,10 +47,15 @@ public class View extends JFrame {
         setController(controller);
 
         menuPanel = new MenuPanel(this);
+        menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
+        //menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
+        //menuPanel.setHorizontalAlignment(JLabel.CENTER);
+        //menuPanel.setVerticalAlignment(JLabel.CENTER);
+        //menuPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
         getContentPane().add(menuPanel);
 
         //setSize(SQUARE_SIZE * x + 2 * MARGIN, SQUARE_SIZE * y + 3 * MARGIN );
-        setSize(200, 300);
+        setSize(400, 350);
 
         setVisible(true);
 
@@ -131,7 +136,7 @@ public class View extends JFrame {
             else
             if( choice == 1 )
             {
-                setSize(200, 300);
+                setSize(400, 350);
 
                 getContentPane().remove(gamePanel);
                 getContentPane().add(menuPanel);
