@@ -93,13 +93,13 @@ public class View extends JFrame {
      */
     public void startGame()
     {
-        gamePanel = new GamePanel(SQUARE_SIZE, MARGIN, x, y);
+        gamePanel = new GamePanel(SQUARE_SIZE, MARGIN, x, y, controller.getMode());
         gamePanel.setBackground(Color.BLUE);
 
         updateSize();
 
         label = new JLabel("Wynik: 0");
-        label.setForeground(Color.GREEN);
+        label.setForeground(Color.WHITE);
 
         gamePanel.add(label);
 

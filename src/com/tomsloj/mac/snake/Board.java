@@ -100,6 +100,8 @@ public class Board {
         changeMod();
         randApple();
         notifyAllObservers();
+        //writeEmptyPoints();
+        //System.out.println("");
     }
 
     /**
@@ -150,6 +152,7 @@ public class Board {
      */
     void changeMod()
     {
+
         clearWalls();
 
         if( mode == FRAME )
@@ -335,6 +338,8 @@ public class Board {
         appleY = pair.getValue();
 
         info.setApple(appleX, appleY);
+
+        //System.out.println(appleX + " " + appleY);
     }
 
     /**
@@ -364,7 +369,7 @@ public class Board {
         for (Pair<Integer, Integer> integerIntegerPair : snake)
             System.out.println("\t" + integerIntegerPair);
     }
-
+    */
     private void writeBoard()
     {
         for( int i = 0; i < y; i++ )
@@ -376,7 +381,13 @@ public class Board {
             System.out.println();
         }
     }
-    */
+
+    private void writeEmptyPoints()
+    {
+        for (Pair<Integer, Integer> integerIntegerPair : emptyPoints)
+            System.out.println("\t" + integerIntegerPair);
+    }
+
 
     /**
      * usuwa ściany z planszy
@@ -385,7 +396,7 @@ public class Board {
     {
         for(Pair<Integer, Integer> i : walls)
         {
-            emptyPoints.add(i);
+            //emptyPoints.add(i);
             table[i.getKey()][i.getValue()] = EMPTY_FIELD;
         }
         walls.clear();

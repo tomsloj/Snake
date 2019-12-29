@@ -20,7 +20,10 @@ public class GamePanel extends JPanel {
      * kolor obwódki węża
      */
     private final Color DARK_GREEN = new Color(50,205,50);
-
+    /**
+     * kolor ścian
+     */
+    private final Color WALL_COLOR = new Color(0,0, 190);
     /**
      * rozmiar jednego pola planszy
      */
@@ -29,6 +32,11 @@ public class GamePanel extends JPanel {
      * wielkość marginesów
      */
     private int margin;
+
+    /**
+     * rodzaj planszy
+     */
+    int mode;
 
     /**
      * szerokość planszy
@@ -44,12 +52,13 @@ public class GamePanel extends JPanel {
      */
     private Information info  = new Information();
 
-    GamePanel(int square, int margin, int x, int y)
+    GamePanel(int square, int margin, int x, int y, int mode)
     {
         this.square = square;
         this.margin = margin;
         this.x = x;
         this.y = y;
+        this.mode = mode;
     }
 
     /**
@@ -59,7 +68,8 @@ public class GamePanel extends JPanel {
     {
         super.paintComponent(g);
 
-        paintFrame(g);
+        if( mode != 1)
+            paintFrame(g);
 
         Deque<Pair<Integer, Integer>> snake = info.getSnake();
 
@@ -243,7 +253,7 @@ public class GamePanel extends JPanel {
      */
     private void paintFrame(Graphics g)
     {
-        g.setColor(Color.BLACK);
+        g.setColor(new Color(135,206,250));
         g.drawRect(margin, margin, x * square, y * square);
     }
 
@@ -285,8 +295,8 @@ public class GamePanel extends JPanel {
      */
     private void paintWall(Graphics g, int i, int j)
     {
-        g.setColor(Color.WHITE);
-        g.fillRect(margin + i * square, margin + j * square ,square,square);
+        g.setColor(WALL_COLOR);
+        g.fillRect(margin + i * square, margin + j * square,square,square);
     }
 
     /**
