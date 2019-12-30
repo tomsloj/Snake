@@ -17,7 +17,14 @@ public class View extends JFrame {
      */
     private final int MARGIN = 25;
 
+    /**
+     * kontroler obsługujący widok
+     */
     private Controller controller;
+
+    /**
+     * etykieta zawierająca informację o aktualnym wyniku
+     */
     private JLabel label;
 
     /**
@@ -29,7 +36,13 @@ public class View extends JFrame {
      */
     private MenuPanel menuPanel;
 
+    /**
+     * szerokość planszy
+     */
     private int x;
+    /**
+     * wysokość planszy
+     */
     private int y;
 
     /**
@@ -37,6 +50,13 @@ public class View extends JFrame {
      */
     private int score = 0;
 
+    /**
+     * konstruktor ustawiający widok gry
+     * wyświetla panel menu
+     * @param x szerokość planszy
+     * @param y wysokość planszy
+     * @param controller kontroler obsługujący widok
+     */
     View(int x, int y, Controller controller)
     {
         super("Snake");
@@ -48,13 +68,9 @@ public class View extends JFrame {
 
         menuPanel = new MenuPanel(this);
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
-        //menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.PAGE_AXIS));
-        //menuPanel.setHorizontalAlignment(JLabel.CENTER);
-        //menuPanel.setVerticalAlignment(JLabel.CENTER);
-        //menuPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+
         getContentPane().add(menuPanel);
 
-        //setSize(SQUARE_SIZE * x + 2 * MARGIN, SQUARE_SIZE * y + 3 * MARGIN );
         setSize(400, 350);
 
         setVisible(true);
@@ -83,7 +99,11 @@ public class View extends JFrame {
         label.setText("Wynik: " + score);
     }
 
-    public void setController(Controller controller)
+    /**
+     * ustawia kontroler obsługujący widok
+     * @param controller kontroler obsługujący widok
+     */
+    private void setController(Controller controller)
     {
         this.controller = controller;
     }
@@ -160,39 +180,71 @@ public class View extends JFrame {
         }
     }
 
+    /**
+     * ustawia szerokość planszy
+     * @param x szerokość planszy
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * ustawia wysokość planszy
+     * @param y wysokość planszy
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * ustawia poziom szybkości węża
+     * @param speed poziom szybkości
+     */
     public void setSpeed(int speed)
     {
         controller.setSpeed(speed);
     }
 
+    /**
+     * ustawia rodzaj planszy
+     * @param mode rodzaj planszy
+     */
     public void setMode( int mode )
     {
         controller.setMode( mode );
     }
 
+    /**
+     * ustawia poziom wielkości planszy
+     * @param size poziom wielkości planszy
+     */
     public void setSize(int size)
     {
         controller.setSize(size);
     }
 
+    /**
+     * zwraca poziom szybkości węża
+     * @return poziom szybkości węża
+     */
     public int getSpeedLevel()
     {
         return controller.getSpeedLevel();
     }
 
+    /**
+     * zwraca rodzaj planszy
+     * @return rodzaj planszy
+     */
     public int getMode()
     {
         return controller.getMode();
     }
 
+    /**
+     * zwraca poziom wielkości planszy
+     * @return poziom wielkości planszy
+     */
     public int getBoardSize()
     {
         if( x == 16 )

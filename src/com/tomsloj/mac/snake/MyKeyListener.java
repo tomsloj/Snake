@@ -29,11 +29,19 @@ public class MyKeyListener implements KeyListener
      */
     Controller controller;
 
+    /**
+     * konstruktor ustawiający kontroler aplikacji
+     * @param controller kontroler
+     */
     public MyKeyListener( Controller controller )
     {
         this.controller = controller;
     }
 
+    /**
+     * obsługa naciśnnięcia przycisku
+     * @param e naciśnięcie przycisku
+     */
     @Override
     public void keyTyped(KeyEvent e)
     {
@@ -42,7 +50,7 @@ public class MyKeyListener implements KeyListener
 
     /**
      * obsługa naciśnięcia przycisku
-     * ustawienie ostatnio naciśniętego klawisza
+     * ustawienie ostatnio naciśniętego klawisza określającego kierunek węża
      * @param e naciśnięcie przycisku
      */
     @Override
@@ -72,6 +80,11 @@ public class MyKeyListener implements KeyListener
 
     }
 
+    /**
+     * obsługa puszczeia przycisku
+     * jeśli naciśnięte zostało 'p' informuje o tym kontroler
+     * @param e naciśnięcie przycisku
+     */
     @Override
     public void keyReleased(KeyEvent e)
     {

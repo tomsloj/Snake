@@ -32,8 +32,15 @@ public class MenuPanel extends JPanel {
      */
     JButton closeButton;
 
+    /**
+     * widok otwierający panel
+     */
     View view;
 
+    /**
+     * ustawia widok menu  i obsługę przycisków
+     * @param view widok otwierający panel
+     */
     MenuPanel(View view)
     {
         this.view = view;

@@ -17,11 +17,6 @@ public class Controller implements ActionListener {
      */
     final int SPEED_UNIT = 120;
 
-    //game modes
-    final int EMPTY = 0;
-    final int FRAME = 1;
-    final int STRIPS = 2;
-
     /**
      * rodzaj planszy
      * 0 - pusta, 1 - z ramką, 2 - z paskami
@@ -54,6 +49,10 @@ public class Controller implements ActionListener {
      */
     MyKeyListener keyListener = new MyKeyListener(this);
 
+    /**
+     * konstruktor przypisujący widok i model do konstruktora
+     * dodaje słuchacza klawiatury do widoku
+     */
     Controller()
     {
         view = new View(x, y, this);

@@ -13,7 +13,13 @@ import javafx.util.Pair;
  */
 public class GamePanel extends JPanel {
 
+    /**
+     * stała odpowiadająca poziomemu ustawieniu linii
+     */
     private final int HORIZONTAL = 0;
+    /**
+     * stała odpowiadająca pionowemu ustawieniu linii
+     */
     private final int VERTICAL = 1;
 
     /**
@@ -52,6 +58,14 @@ public class GamePanel extends JPanel {
      */
     private Information info  = new Information();
 
+    /**
+     * ustawia właściwości planszy do gry
+     * @param square rozmiar jednego pola planszy
+     * @param margin wielkość marginesów
+     * @param x szerokość planszy
+     * @param y wysokość planszy
+     * @param mode rodzaj planszy
+     */
     GamePanel(int square, int margin, int x, int y, int mode)
     {
         this.square = square;
@@ -318,6 +332,10 @@ public class GamePanel extends JPanel {
             g2d.drawLine( margin + i * square, margin + j * square, margin + i * square, margin + (j + 1) * square );
     }
 
+    /**
+     * ustawia informację o modyfikacjach w planszy
+     * @param info informacja o modyfikacjach w planszy
+     */
     public void setInfo(Information info)
     {
         this.info = info;

@@ -11,17 +11,44 @@ import java.util.*;
 public class Board {
 
     //game modes
+    /**
+     * pusta plansza
+     */
     private final int EMPTY = 0;
+    /**
+     * plansza z ramką
+     */
     private final int FRAME = 1;
+    /**
+     * plansza z pasami
+     */
     private final int STRIPS = 2;
 
+    /**
+     * aktualnie wybrany rodzaj planszy
+     */
     private int mode = 0;
 
+    /**
+     * zmienna określająca czy użytkownik przegrał
+     */
     private boolean isGameOver = false;
 
+    /**
+     * wartość pustego pola
+     */
     private final int EMPTY_FIELD = 0;
+    /**
+     * wartość pola a którym znajduje się wąż
+     */
     private final int SNAKE_FIELD = 1;
+    /**
+     * wartość pola a którym znajduje się jabłko
+     */
     private final int APPLE_FIELD = 2;
+    /**
+     * wartość pola a którym znajduje się ściana
+     */
     private final int WALL_FIELD = 3;
 
     /**
@@ -51,6 +78,9 @@ public class Board {
      */
     private Deque<Pair<Integer, Integer>> snake = new LinkedList<>();
 
+    /**
+     * lista obserwatorów modelu
+     */
     private List<View> observers = new ArrayList<>();
 
     /**
@@ -59,21 +89,40 @@ public class Board {
      */
     private char currentDirection = 'u';
 
+    /**
+     * współrzędna X głowy węża
+     */
     private int headX;
+    /**
+     * współrzędna Y głowy węża
+     */
     private int headY;
+    /**
+     * współrzędna X jabłka
+     */
     private int appleX;
+    /**
+     * współrzędna Y jabłka
+     */
     private int appleY;
 
     /**
-     * rozmiar planszy
+     * szerokość planszy
      */
-    private int x, y;
+    private int x;
+    /**
+     * wysokość planszy
+     */
+    private int y;
 
     /**
      * liczba zdobytych punktów
      */
     private int score = 0;
 
+    /**
+     * zmienna umożliwiająca generowanie kolejnych liczb pseudolosowych
+     */
     private Random rand;
 
     /**
@@ -81,6 +130,10 @@ public class Board {
      */
     private Information info = new Information();
 
+    /**
+     * konstruktor klasy Board
+     * ustawia wielkość planszy na 16x12 (plansza mała)
+     */
     Board ()
     {
         x = 16;
@@ -339,14 +392,11 @@ public class Board {
         appleY = pair.getValue();
 
         info.setApple(appleX, appleY);
-
-        writeBoard();
-        //System.out.println(appleX + " " + appleY);
     }
 
     /**
      * dodaje obserwatora
-     * @observer observator do dodania
+     * @param observer observator do dodania
      */
     public void attach(View observer){
         info.setSnake(snake);
@@ -371,7 +421,7 @@ public class Board {
         for (Pair<Integer, Integer> integerIntegerPair : snake)
             System.out.println("\t" + integerIntegerPair);
     }
-    */
+
     private void writeBoard()
     {
         for( int i = 0; i < y; i++ )
@@ -390,6 +440,7 @@ public class Board {
         for (Pair<Integer, Integer> integerIntegerPair : emptyPoints)
             System.out.println("\t" + integerIntegerPair);
     }
+     */
 
 
     /**
