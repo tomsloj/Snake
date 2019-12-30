@@ -24,10 +24,14 @@ public class MyKeyListener implements KeyListener
     l - left
     n - nothing
      */
+    /**
+     * konstroler wywołujący słuchacza
+     */
+    Controller controller;
 
-    public MyKeyListener()
+    public MyKeyListener( Controller controller )
     {
-
+        this.controller = controller;
     }
 
     @Override
@@ -45,22 +49,22 @@ public class MyKeyListener implements KeyListener
     public void keyPressed(KeyEvent e)
     {
         //System.out.println("Clicked!!!");
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
         {
             //System.out.println("Right key pressed");
             lastClicked = 'r';
         }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT)
+        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A)
         {
             //System.out.println("Left key pressed");
             lastClicked = 'l';
         }
-        if (e.getKeyCode() == KeyEvent.VK_UP)
+        if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W)
         {
             //System.out.println("Up key pressed");
             lastClicked = 'u';
         }
-        if (e.getKeyCode() == KeyEvent.VK_DOWN)
+        if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
         {
             //System.out.println("Down key pressed");
             lastClicked = 'd';
@@ -71,7 +75,11 @@ public class MyKeyListener implements KeyListener
     @Override
     public void keyReleased(KeyEvent e)
     {
-
+        char c = e.getKeyChar();
+        if ( c == 'p' || c == 'P' )
+        {
+            controller.pressedP();
+        }
     }
 
     /**

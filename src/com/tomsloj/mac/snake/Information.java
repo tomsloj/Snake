@@ -1,8 +1,8 @@
 package com.tomsloj.mac.snake;
 
-import javafx.util.Pair;
 
 import java.util.ArrayList;
+import javafx.util.Pair;
 import java.util.Deque;
 import java.util.LinkedList;
 

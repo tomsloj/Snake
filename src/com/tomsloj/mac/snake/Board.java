@@ -132,7 +132,8 @@ public class Board {
 
         setHead(x/2, y/2 - 1);
         setHead(x/2, y/2);
-        table[headX][headY] = SNAKE_FIELD;
+        table[x/2][y/2 - 1] = SNAKE_FIELD;
+        table[x/2][y/2] = SNAKE_FIELD;
 
         emptyPoints.remove(new Pair<>(x/2, y/2 - 1));
         emptyPoints.remove(new Pair<>(x/2, y/2));
@@ -339,6 +340,7 @@ public class Board {
 
         info.setApple(appleX, appleY);
 
+        writeBoard();
         //System.out.println(appleX + " " + appleY);
     }
 
@@ -380,6 +382,7 @@ public class Board {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     private void writeEmptyPoints()

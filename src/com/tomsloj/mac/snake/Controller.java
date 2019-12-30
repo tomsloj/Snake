@@ -52,7 +52,7 @@ public class Controller implements ActionListener {
     /**
      * słuchacz klawiatury
      */
-    MyKeyListener keyListener = new MyKeyListener();
+    MyKeyListener keyListener = new MyKeyListener(this);
 
     Controller()
     {
@@ -67,7 +67,6 @@ public class Controller implements ActionListener {
      */
     void startGame()
     {
-        view.addKeyListener(keyListener);
         board.attach(view);
 
         board.startGame();
@@ -166,7 +165,17 @@ public class Controller implements ActionListener {
         //view.updateSize();
 
         board.setSize(x, y);
+    }
 
+    /**
+     * metoda pauzująca lub odpauzowywyująca grę
+     */
+    void pressedP()
+    {
+        if( timer.isRunning() )
+            timer.stop();
+        else
+            timer.start();
     }
 
 }

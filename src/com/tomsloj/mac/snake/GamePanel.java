@@ -1,12 +1,12 @@
 package com.tomsloj.mac.snake;
 
-import javafx.util.Pair;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
+
+import javafx.util.Pair;
 
 /**
  * panel zawierający grę
