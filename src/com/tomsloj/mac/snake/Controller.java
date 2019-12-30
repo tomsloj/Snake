@@ -174,7 +174,10 @@ public class Controller implements ActionListener {
         if( timer.isRunning() )
             timer.stop();
         else
+        {
+            keyListener.getAndResetLastClicked();
             timer.start();
+        }
     }
 
 }

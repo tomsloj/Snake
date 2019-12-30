@@ -139,7 +139,7 @@ public class GamePanel extends JPanel {
     {
         paintSnake(g, head.getKey(), head.getValue());
 
-        if(  head.getValue() == second.getValue() )
+        if( head.getValue().equals( second.getValue() ) )
         {
             paintLine(g, head.getKey(), head.getValue(), HORIZONTAL);
             paintLine(g, head.getKey(), head.getValue() + 1, HORIZONTAL);
@@ -154,7 +154,7 @@ public class GamePanel extends JPanel {
             }
         }
         else
-        if( head.getKey() == second.getKey() )
+        if( head.getKey().equals( second.getKey() ) )
         {
             paintLine(g, head.getKey(), head.getValue(), VERTICAL);
             paintLine(g, head.getKey() + 1, head.getValue(), VERTICAL);
@@ -181,13 +181,13 @@ public class GamePanel extends JPanel {
     {
         paintSnake( g, current.getKey(), current.getValue() );
 
-        if(  prev.getValue() == current.getValue() && current.getValue() == next.getValue() )
+        if( prev.getValue().equals( current.getValue() ) && current.getValue().equals( next.getValue() ) )
         {
             paintLine(g, current.getKey(), current.getValue(), HORIZONTAL);
             paintLine(g, current.getKey(), current.getValue() + 1, HORIZONTAL);
         }
         else
-        if( prev.getKey() == current.getKey() &&  current.getKey() == next.getKey() )
+        if(prev.getKey().equals( current.getKey() ) && current.getKey().equals( next.getKey() ) )
         {
             paintLine(g, current.getKey(), current.getValue(), VERTICAL);
             paintLine(g, current.getKey() + 1, current.getValue(), VERTICAL);
@@ -230,7 +230,7 @@ public class GamePanel extends JPanel {
     {
         paintSnake(g, tail.getKey(), tail.getValue());
 
-        if(  tail.getValue() == second.getValue() )
+        if( tail.getValue().equals( second.getValue() ) )
         {
             paintLine(g, tail.getKey(), tail.getValue(), HORIZONTAL);
             paintLine(g, tail.getKey(), tail.getValue() + 1, HORIZONTAL);
@@ -245,7 +245,7 @@ public class GamePanel extends JPanel {
             }
         }
         else
-        if( tail.getKey() == second.getKey() )
+        if( tail.getKey().equals( second.getKey() ) )
         {
             paintLine(g, tail.getKey(), tail.getValue(), VERTICAL);
             paintLine(g, tail.getKey() + 1, tail.getValue(), VERTICAL);

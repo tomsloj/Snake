@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Board {
 
-    //game modes
+    /* game modes */
     /**
      * pusta plansza
      */
