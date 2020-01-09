@@ -75,7 +75,6 @@ public class MenuPanel extends JPanel {
 
         playButton.addActionListener(actionEvent ->
         {
-            System.out.println("GRAJ");
             view.startGame();
         });
 

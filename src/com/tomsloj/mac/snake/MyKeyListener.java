@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 public class MyKeyListener implements KeyListener
 {
     /**
-     * ostatnio naciśnięty przycisk
+     * ostatnio naciśnięty przycisk;
      * n - nie naciśnięto przycisku
      * d - strzałka w dół
      * u - strzałka w górę
@@ -17,13 +17,7 @@ public class MyKeyListener implements KeyListener
      * l - strzałka w lewo
      */
     private char lastClicked = 'n';
-    /*
-    u - up
-    d - down
-    r - right
-    l - left
-    n - nothing
-     */
+
     /**
      * konstroler wywołujący słuchacza
      */
@@ -56,7 +50,6 @@ public class MyKeyListener implements KeyListener
     @Override
     public void keyPressed(KeyEvent e)
     {
-        //System.out.println("Clicked!!!");
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
         {
             //System.out.println("Right key pressed");

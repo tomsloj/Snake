@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
     /**
      * kolor obwódki węża
      */
-    private final Color DARK_GREEN = new Color(50,205,50);
+    private final Color SNAKE_BORDER_COLOR = new Color(50,205,50);
     /**
      * kolor ścian
      */
@@ -325,7 +325,7 @@ public class GamePanel extends JPanel {
         Graphics2D g2d = (Graphics2D)g;
         g2d.setStroke(new BasicStroke(2));
 
-        g2d.setColor(DARK_GREEN);
+        g2d.setColor(SNAKE_BORDER_COLOR);
         if( orientation == HORIZONTAL)
             g2d.drawLine( margin + i * square, margin + j * square, margin + (i + 1)*square, margin + j * square );
         else

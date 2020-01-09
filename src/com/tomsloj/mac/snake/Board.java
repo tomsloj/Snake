@@ -6,21 +6,20 @@ import javafx.util.Pair;
 import java.util.*;
 
 /**
- * klasa będąca modelem programu wzorca MVC
+ * klasa będąca modelem programu, wzorca MVC
  */
 public class Board {
 
-    /* game modes */
     /**
-     * pusta plansza
+     * tryb gdy z pustą planszą
      */
     private final int EMPTY = 0;
     /**
-     * plansza z ramką
+     * tryb gry z ramką
      */
     private final int FRAME = 1;
     /**
-     * plansza z pasami
+     * tryb gry z planszą z pasami
      */
     private final int STRIPS = 2;
 
@@ -39,15 +38,15 @@ public class Board {
      */
     private final int EMPTY_FIELD = 0;
     /**
-     * wartość pola a którym znajduje się wąż
+     * wartość pola na którym znajduje się wąż
      */
     private final int SNAKE_FIELD = 1;
     /**
-     * wartość pola a którym znajduje się jabłko
+     * wartość pola na którym znajduje się jabłko
      */
     private final int APPLE_FIELD = 2;
     /**
-     * wartość pola a którym znajduje się ściana
+     * wartość pola na którym znajduje się ściana
      */
     private final int WALL_FIELD = 3;
 
@@ -70,7 +69,7 @@ public class Board {
      */
     private ArrayList<Pair<Integer, Integer> >emptyPoints = new ArrayList<>();
     /**
-     * przechowuje miejsca gdzie znajduje się ściana
+     * lista przechowująca miejsca gdzie znajdują się ściany
      */
     private ArrayList<Pair<Integer, Integer> >walls = new ArrayList<>();
     /**
@@ -84,7 +83,7 @@ public class Board {
     private List<View> observers = new ArrayList<>();
 
     /**
-     * aktualny kierunek w którym przesówa się wąż
+     * aktualny kierunek w którym przesuwa się wąż
      * u - góra, d - dół, l - lewo, r - prawo
      */
     private char currentDirection = 'u';
@@ -121,7 +120,7 @@ public class Board {
     private int score = 0;
 
     /**
-     * zmienna umożliwiająca generowanie kolejnych liczb pseudolosowych
+     * obiekt umożliwiający generowanie kolejnych liczb pseudolosowych
      */
     private Random rand;
 
@@ -264,7 +263,6 @@ public class Board {
     {
         headX = x;
         headY = y;
-        //table[x][y] = 1;
         snake.addFirst(new Pair<>(x,y));
     }
 
@@ -364,9 +362,6 @@ public class Board {
             table[lastTail.getKey()][lastTail.getValue()] = SNAKE_FIELD;
             snake.addLast(lastTail);
             snake.removeFirst();
-
-
-            //System.out.println("GAME OVER");
         }
         else
             table[headX][headY] = SNAKE_FIELD;
@@ -457,7 +452,7 @@ public class Board {
     }
 
     /**
-     * zwraca liczbę punktów
+     * zwraca liczbę punktów zdobytywch przez gracza
      * @return liczba zdobytych punktów
      */
     public int getScore()

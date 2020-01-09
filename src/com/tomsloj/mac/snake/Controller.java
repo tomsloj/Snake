@@ -18,7 +18,7 @@ public class Controller implements ActionListener {
     final int SPEED_UNIT = 120;
 
     /**
-     * rodzaj planszy
+     * rodzaj planszy:
      * 0 - pusta, 1 - z ramką, 2 - z paskami
      */
     private int mode = 0;
@@ -50,7 +50,7 @@ public class Controller implements ActionListener {
     MyKeyListener keyListener = new MyKeyListener(this);
 
     /**
-     * konstruktor przypisujący widok i model do konstruktora
+     * konstruktor przypisujący widok i model do konstruktora;
      * dodaje słuchacza klawiatury do widoku
      */
     Controller()
@@ -75,7 +75,7 @@ public class Controller implements ActionListener {
     }
 
     /**
-     * metoda będąca słuchaczem timera
+     * metoda będąca słuchaczem timera;
      * uruchamia się w momencie tyknięcia timera i powoduje uruchomienie mechanizmu poruszającego wężem
      */
     @Override
@@ -109,6 +109,7 @@ public class Controller implements ActionListener {
     }
 
     /**
+     * zwraca aktualnie ustawiony poziom szybkości węża
      * @return aktualnie ustawiony poziom szybkości
      */
     public int getSpeedLevel()
@@ -128,6 +129,7 @@ public class Controller implements ActionListener {
     }
 
     /**
+     * zwraca numer aktualnie ustawionego rodzaju planszy
      * @return aktualnie ustawiony rodzaj planszy
      */
     public int getMode()
